@@ -1,0 +1,2817 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>生命之旅｜循道衛理中心 安老院舍外展專業服務</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================================
+       BASE & PASTORAL WATERCOLOR THEME
+       ===================================================================== */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: "Noto Sans TC", -apple-system, BlinkMacSystemFont, "PingFang HK", "Microsoft JhengHei", sans-serif;
+      color: #1F2937;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background-color: #EBF6FC;
+    }
+
+    /* Authentic Watercolor Pastoral Sky & Meadow Background (Slides 1-3) */
+    .pastoral-bg {
+      background:
+        radial-gradient(circle at 18% 18%, rgba(191, 232, 255, 0.85) 0%, rgba(191, 232, 255, 0) 52%),
+        radial-gradient(circle at 80% 24%, rgba(254, 240, 138, 0.52) 0%, rgba(254, 240, 138, 0) 48%),
+        radial-gradient(circle at 85% 82%, rgba(190, 230, 130, 0.65) 0%, rgba(190, 230, 130, 0) 52%),
+        linear-gradient(180deg, #E3F3FC 0%, #F4FAEC 58%, #E1EFC5 100%);
+    }
+
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 12px 32px rgba(27, 67, 50, 0.12);
+    }
+
+    /* =====================================================================
+       EXACT 12x12 MONOPOLY BOARD (MATCHING REFERENCE IMAGE 100%)
+       ===================================================================== */
+    .board-wrapper {
+      width: 100%;
+      max-width: min(96vw, 90vh, 840px);
+      aspect-ratio: 1 / 1;
+      background: #1F8A4C;
+      padding: 2px;
+      box-shadow: 0 18px 46px rgba(20, 68, 42, 0.24);
+      border-radius: 6px;
+    }
+
+    .board-grid {
+      display: grid;
+      grid-template-columns: 1.48fr repeat(10, 1fr) 1.48fr;
+      grid-template-rows: 1.48fr repeat(10, 1fr) 1.48fr;
+      width: 100%;
+      height: 100%;
+      background: #1F8A4C;
+      gap: 2px;
+    }
+
+    .board-tile {
+      position: relative;
+      display: flex;
+      cursor: pointer;
+      user-select: none;
+      overflow: hidden;
+      transition: transform 0.14s ease, box-shadow 0.14s ease;
+    }
+
+    .board-tile:hover {
+      z-index: 30;
+      transform: scale(1.07);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    .board-tile.active-landed {
+      z-index: 35;
+      outline: 3.5px solid #F59E0B;
+      box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Two-part tile sub-sections */
+    .tile-char-zone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .tile-num-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: #2B5EA7;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      text-decoration-thickness: 2px;
+      line-height: 1;
+      font-size: clamp(10px, 1.35vw, 15px);
+    }
+
+    /* Orientation rules for the 4 edges */
+    .edge-left {
+      flex-direction: row;
+    }
+    .edge-left .tile-char-zone {
+      width: 68%;
+      height: 100%;
+      background: #F4A298;
+      border-right: 2px solid #1F8A4C;
+    }
+    .edge-left .tile-num-strip {
+      width: 32%;
+      height: 100%;
+      background: #FDF3EF;
+    }
+
+    .edge-top {
+      flex-direction: column;
+    }
+    .edge-top .tile-char-zone {
+      width: 100%;
+      height: 68%;
+      background: #F59B38;
+      border-bottom: 2px solid #1F8A4C;
+    }
+    .edge-top .tile-num-strip {
+      width: 100%;
+      height: 32%;
+      background: #EEF4B8;
+    }
+
+    .edge-right {
+      flex-direction: row;
+    }
+    .edge-right .tile-num-strip {
+      width: 32%;
+      height: 100%;
+      background: #F6F7D0;
+      border-right: 2px solid #1F8A4C;
+    }
+    .edge-right .tile-char-zone {
+      width: 68%;
+      height: 100%;
+      background: #63CCC0;
+    }
+
+    .edge-bottom {
+      flex-direction: column;
+    }
+    .edge-bottom .tile-num-strip {
+      width: 100%;
+      height: 32%;
+      background: #D5EEFC;
+      border-bottom: 2px solid #1F8A4C;
+    }
+    .edge-bottom .tile-char-zone {
+      width: 100%;
+      height: 68%;
+      background: #71A6DE;
+    }
+
+    /* Corner Tiles */
+    .corner-tile {
+      background: #EFF7EC;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+    }
+
+    /* Pure White Center Interior */
+    .board-center {
+      grid-column: 2 / 12;
+      grid-row: 2 / 12;
+      background: #FFFFFF;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* 4 Diagonal Dashed Card Zones in Center */
+    .diag-deck {
+      position: absolute;
+      width: 29%;
+      height: 14.5%;
+      background: #FDFBE8;
+      border: 2px dashed #4FA36B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+      z-index: 10;
+      box-shadow: 0 3px 10px rgba(31, 138, 76, 0.08);
+    }
+    .diag-deck:hover {
+      background: #FFFCE0;
+      box-shadow: 0 6px 18px rgba(31, 138, 76, 0.2);
+    }
+    .diag-deck-tl { top: 13%; left: 4%; transform: rotate(-45deg); }
+    .diag-deck-tl:hover { transform: rotate(-45deg) scale(1.07); }
+    .diag-deck-tr { top: 13%; right: 4%; transform: rotate(45deg); }
+    .diag-deck-tr:hover { transform: rotate(45deg) scale(1.07); }
+    .diag-deck-bl { bottom: 13%; left: 4%; transform: rotate(45deg); }
+    .diag-deck-bl:hover { transform: rotate(45deg) scale(1.07); }
+    .diag-deck-br { bottom: 13%; right: 4%; transform: rotate(-45deg); }
+    .diag-deck-br:hover { transform: rotate(-45deg) scale(1.07); }
+
+    .outlined-stage-label {
+      font-weight: 900;
+      font-size: clamp(12px, 2.2vw, 26px);
+      letter-spacing: 0.08em;
+      -webkit-text-stroke: 1.2px #1F2937;
+      paint-order: stroke fill;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.18);
+    }
+
+    /* Player Pawns */
+    .pawn-wrap {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      pointer-events: none;
+      z-index: 20;
+      padding: 2px;
+    }
+    .pawn-token {
+      width: clamp(13px, 1.8vw, 20px);
+      height: clamp(13px, 1.8vw, 20px);
+      border-radius: 9999px;
+      border: 2.5px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45), 0 0 8px rgba(255, 255, 255, 0.8);
+      animation: pawnPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pawnPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    /* =====================================================================
+       STAGE-SPECIFIC MODAL THEMES (MATCHING SLIDES)
+       ===================================================================== */
+    .theme-infancy {
+      background-color: #FCE7D9;
+      border-color: #F4A298;
+    }
+    .theme-youth {
+      background-color: #FCFBF7;
+      border-color: #00BCC6;
+    }
+    .theme-adult {
+      background-color: #FAF8EE;
+      border: 8px solid #4A7C59;
+    }
+    .theme-elder {
+      background-color: #E6E2D6;
+      border-color: #B8B0A0;
+    }
+
+    /* Youth cyan stepped corner blocks */
+    .youth-block {
+      position: absolute;
+      background: #00BCC6;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* =====================================================================
+       WIDGET ANIMATIONS
+       ===================================================================== */
+    @keyframes diceShake {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-16deg) scale(1.14); }
+      50% { transform: rotate(16deg) scale(1.16); }
+      75% { transform: rotate(-10deg) scale(1.1); }
+    }
+    .dice-rolling { animation: diceShake 0.4s ease-in-out infinite; }
+
+    @keyframes flameFlicker {
+      0%, 100% { transform: scale(1) rotate(-2deg); opacity: 0.95; }
+      50% { transform: scale(1.12, 0.9) rotate(3deg); opacity: 1; }
+    }
+    .candle-flame {
+      animation: flameFlicker 0.55s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+
+    @keyframes vinylSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    .vinyl-spinning { animation: vinylSpin 5s linear infinite; }
+
+    @keyframes breathPulse {
+      0%, 100% { transform: scale(0.84); opacity: 0.78; }
+      50% { transform: scale(1.16); opacity: 1; }
+    }
+    .taichi-breath { animation: breathPulse 6s ease-in-out infinite; }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(200px) rotate(360deg); opacity: 0; }
+    }
+    .confetti-piece {
+      position: fixed;
+      top: 10%;
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      pointer-events: none;
+      z-index: 150;
+      animation: confettiFall 1.5s ease-out forwards;
+    }
+
+    .mtr-blur {
+      filter: blur(12px);
+      transition: filter 0.45s ease;
+    }
+    .mtr-clear {
+      filter: blur(0px);
+      transition: filter 0.45s ease;
+    }
+
+    @keyframes flashEffect {
+      0% { background: rgba(255,255,255,0.92); }
+      100% { background: rgba(255,255,255,0); }
+    }
+    .flash-overlay { animation: flashEffect 0.35s ease-out; }
+
+    .custom-scroll::-webkit-scrollbar { width: 6px; }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.18);
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- =====================================================================
+       VIEW 1: COVER PAGE (Replicating Slide 1)
+       ===================================================================== -->
+  <section id="view-cover" class="pastoral-bg relative min-h-screen w-full flex flex-col justify-between p-5 sm:p-8 overflow-hidden">
+    <!-- Watercolor Meadow, Sheep, Yellow-Green Bush & White Cosmos Flowers SVG -->
+    <svg class="pointer-events-none absolute inset-0 w-full h-full object-cover" viewBox="0 0 1440 810" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <!-- Distant gentle hills -->
+      <path fill="#D4E8B8" opacity="0.85" d="M0,620 Q280,575 560,605 T1120,580 L1440,565 L1440,810 L0,810 Z"/>
+      <path fill="#C2DF96" opacity="0.9" d="M0,665 Q360,635 720,675 T1440,630 L1440,810 L0,810 Z"/>
+      <!-- Winding sunlit meadow path -->
+      <path fill="#F3E5C0" opacity="0.88" d="M510,810 C550,740 650,720 600,660 C570,625 605,605 635,595 L665,598 C630,615 620,635 660,672 C725,730 640,775 615,810 Z"/>
+      <!-- Little white sheep grazing on the left meadow -->
+      <g transform="translate(220,680)">
+        <ellipse cx="0" cy="0" rx="18" ry="11" fill="#FFFDF5"/>
+        <circle cx="-14" cy="2" r="6" fill="#4B5563"/>
+        <line x1="-8" y1="8" x2="-8" y2="16" stroke="#4B5563" stroke-width="2.5"/>
+        <line x1="8" y1="8" x2="8" y2="16" stroke="#4B5563" stroke-width="2.5"/>
+      </g>
+      <g transform="translate(360,725) scale(1.25)">
+        <ellipse cx="0" cy="0" rx="18" ry="11" fill="#FFFDF5"/>
+        <circle cx="15" cy="1" r="6" fill="#4B5563"/>
+        <line x1="-8" y1="8" x2="-8" y2="16" stroke="#4B5563" stroke-width="2.5"/>
+        <line x1="8" y1="8" x2="8" y2="16" stroke="#4B5563" stroke-width="2.5"/>
+      </g>
+      <g transform="translate(465,695) scale(0.95)">
+        <ellipse cx="0" cy="0" rx="18" ry="11" fill="#FFFDF5"/>
+        <circle cx="14" cy="2" r="6" fill="#4B5563"/>
+        <line x1="-8" y1="8" x2="-8" y2="16" stroke="#4B5563" stroke-width="2.5"/>
+        <line x1="8" y1="8" x2="8" y2="16" stroke="#4B5563" stroke-width="2.5"/>
+      </g>
+      <!-- Lush Yellow-Green Watercolor Bush on Right -->
+      <g opacity="0.88">
+        <circle cx="1040" cy="430" r="145" fill="#E8E463"/>
+        <circle cx="1150" cy="470" r="150" fill="#B9C854"/>
+        <circle cx="965" cy="540" r="130" fill="#A6BC57"/>
+        <circle cx="1120" cy="610" r="165" fill="#C9D948"/>
+        <circle cx="1290" cy="650" r="170" fill="#BCE05B"/>
+      </g>
+      <!-- White Cosmos Flowers Foreground Right -->
+      <g>
+        <g transform="translate(1150,550)">
+          <circle cx="0" cy="0" r="42" fill="#FFFFFF" opacity="0.96"/>
+          <circle cx="0" cy="0" r="10" fill="#FACC15"/>
+        </g>
+        <g transform="translate(1310,510)">
+          <circle cx="0" cy="0" r="48" fill="#FFFFFF" opacity="0.96"/>
+          <circle cx="0" cy="0" r="11" fill="#FACC15"/>
+        </g>
+        <g transform="translate(1030,630)">
+          <circle cx="0" cy="0" r="36" fill="#FFFFFF" opacity="0.95"/>
+          <circle cx="0" cy="0" r="9" fill="#FACC15"/>
+        </g>
+        <g transform="translate(1240,680)">
+          <circle cx="0" cy="0" r="44" fill="#FFFFFF" opacity="0.95"/>
+          <circle cx="0" cy="0" r="10" fill="#FACC15"/>
+        </g>
+        <g transform="translate(960,720)">
+          <circle cx="0" cy="0" r="38" fill="#FFFFFF" opacity="0.94"/>
+          <circle cx="0" cy="0" r="9" fill="#FACC15"/>
+        </g>
+      </g>
+    </svg>
+
+    <!-- Top-Left Authentic Institutional Header -->
+    <header class="relative z-10 flex flex-wrap items-start justify-between gap-4">
+      <div class="glass-panel rounded-2xl px-4 py-3 flex items-center gap-3.5 max-w-2xl">
+        <!-- Methodist Centre Green M Emblem -->
+        <svg class="w-14 h-14 shrink-0" viewBox="0 0 120 120" aria-label="循道衛理中心標誌">
+          <path d="M16,62 L44,34 C46,20 74,20 76,34 L104,62 C96,90 78,104 60,104 C42,104 24,90 16,62 Z" fill="#FFFFFF" stroke="#007A4D" stroke-width="4.5" stroke-linejoin="round"/>
+          <path d="M35,84 L35,46 L60,64 L85,46 L85,84 L71,84 L71,65 L60,74 L49,65 L49,84 Z" fill="#007A4D"/>
+        </svg>
+        <div>
+          <div class="text-xl sm:text-2xl font-black text-[#007A4D] tracking-wide leading-tight">
+            循道衛理中心 <span class="font-semibold text-base sm:text-lg text-[#007A4D]/85">Methodist Centre</span>
+          </div>
+          <div class="h-0.5 bg-[#007A4D] my-1"></div>
+          <div class="text-sm sm:text-base font-bold text-[#007A4D]">安老院舍外展專業服務</div>
+          <div class="text-[11px] sm:text-xs font-medium text-[#007A4D]/85">Multi-Disciplinary Outreaching Support Team for the Elderly</div>
+        </div>
+      </div>
+
+      <button onclick="toggleSound()" class="sound-toggle-btn glass-panel rounded-full px-4 py-2.5 text-base font-bold text-emerald-900 hover:bg-white transition flex items-center gap-2">
+        <span class="sound-icon">🔊</span>
+        <span class="sound-label">音效：開</span>
+      </button>
+    </header>
+
+    <!-- Center Olive-Green Brush Title + Two Clear Entry Buttons -->
+    <main class="relative z-10 flex-1 flex flex-col items-center justify-center text-center my-6">
+      <h1 class="text-6xl sm:text-7xl md:text-8xl font-black text-[#456628] tracking-[0.18em] drop-shadow-[0_3px_0_rgba(255,255,255,0.9)] mb-4">
+        生命之旅
+      </h1>
+      <p class="text-lg sm:text-2xl font-bold text-[#3F5E2A] bg-white/65 backdrop-blur-sm px-5 py-2 rounded-full mb-8 shadow-sm">
+        長者懷舊・口肌・認知・肢體互動大富翁
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full max-w-2xl">
+        <button onclick="switchView('board')" class="group glass-panel rounded-3xl p-6 sm:p-7 text-left hover:scale-[1.03] hover:bg-white transition-all border-2 border-[#1F8A4C]/40 shadow-xl">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-5xl group-hover:scale-110 transition-transform">🎲</span>
+            <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-black">12×12 完整棋盤</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black text-[#1F6E42] mb-1">開始大富翁棋盤</h2>
+          <p class="text-sm sm:text-base text-gray-700 font-medium">原版四邊成長棋盤、2–4 組分隊擲骰、40 格任務＋4 互動角落。</p>
+        </button>
+
+        <button onclick="switchView('menu')" class="group glass-panel rounded-3xl p-6 sm:p-7 text-left hover:scale-[1.03] hover:bg-white transition-all border-2 border-[#2B5EA7]/35 shadow-xl">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-5xl group-hover:scale-110 transition-transform">🗂️</span>
+            <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs sm:text-sm font-black">快速主題抽題</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-black text-[#2B5EA7] mb-1">四大階段直達選單</h2>
+          <p class="text-sm sm:text-base text-gray-700 font-medium">直接點入幼兒期、青年期、成年期或老年期 1–10 號任務卡。</p>
+        </button>
+      </div>
+    </main>
+
+    <footer class="relative z-10 text-center text-xs sm:text-sm font-bold text-[#3B5E2B]/80">
+      🌼 100% 離線可用・專為 iPad 觸控及院舍大螢幕投屏設計
+    </footer>
+  </section>
+
+  <!-- =====================================================================
+       VIEW 2: 4-STAGE QUICK MENU (Replicating Slide 2)
+       ===================================================================== -->
+  <section id="view-menu" class="hidden pastoral-bg min-h-screen w-full flex-col p-4 sm:p-8">
+    <div class="max-w-5xl mx-auto w-full flex-1 flex flex-col">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div class="flex items-center gap-3">
+          <button onclick="switchView('cover')" class="glass-panel rounded-2xl px-4 py-2.5 font-black text-emerald-900 hover:bg-white transition flex items-center gap-2 text-base sm:text-lg">
+            <span>🏠</span> 返回封面
+          </button>
+          <button onclick="switchView('board')" class="bg-[#1F8A4C] hover:bg-[#176c3a] text-white rounded-2xl px-4 py-2.5 font-black transition shadow-md flex items-center gap-2 text-base sm:text-lg">
+            <span>🎲</span> 前往大富翁棋盤
+          </button>
+        </div>
+        <button onclick="toggleSound()" class="sound-toggle-btn glass-panel rounded-full px-4 py-2 text-base font-bold text-emerald-900 flex items-center gap-2">
+          <span class="sound-icon">🔊</span>
+          <span class="sound-label">音效：開</span>
+        </button>
+      </div>
+
+      <!-- Slide 2 Authentic 2x2 Pale-Cream Cards with Royal-Blue Underlined Titles -->
+      <div id="menu-stage-overview" class="flex-1 flex flex-col justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+          <button onclick="openStageList('infancy')" class="rounded-2xl p-10 sm:p-14 text-center shadow-lg hover:scale-[1.03] transition-all border-2 border-amber-200/80 relative" style="background: rgba(251, 247, 218, 0.90);">
+            <span id="progress-infancy" class="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/85 text-[#C25114] text-xs font-black">已完成 0/10</span>
+            <div class="text-5xl sm:text-6xl font-black text-[#3B71B8] underline decoration-4 underline-offset-8 tracking-widest">幼兒期</div>
+          </button>
+
+          <button onclick="openStageList('youth')" class="rounded-2xl p-10 sm:p-14 text-center shadow-lg hover:scale-[1.03] transition-all border-2 border-amber-200/80 relative" style="background: rgba(251, 247, 218, 0.90);">
+            <span id="progress-youth" class="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/85 text-[#007D87] text-xs font-black">已完成 0/10</span>
+            <div class="text-5xl sm:text-6xl font-black text-[#3B71B8] underline decoration-4 underline-offset-8 tracking-widest">青年期</div>
+          </button>
+
+          <button onclick="openStageList('adult')" class="rounded-2xl p-10 sm:p-14 text-center shadow-lg hover:scale-[1.03] transition-all border-2 border-amber-200/80 relative" style="background: rgba(251, 247, 218, 0.90);">
+            <span id="progress-adult" class="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/85 text-[#2D573A] text-xs font-black">已完成 0/10</span>
+            <div class="text-5xl sm:text-6xl font-black text-[#3B71B8] underline decoration-4 underline-offset-8 tracking-widest">成年期</div>
+          </button>
+
+          <button onclick="openStageList('elder')" class="rounded-2xl p-10 sm:p-14 text-center shadow-lg hover:scale-[1.03] transition-all border-2 border-amber-200/80 relative" style="background: rgba(251, 247, 218, 0.90);">
+            <span id="progress-elder" class="absolute top-3 right-3 px-3 py-1 rounded-full bg-white/85 text-[#5C4D42] text-xs font-black">已完成 0/10</span>
+            <div class="text-5xl sm:text-6xl font-black text-[#3B71B8] underline decoration-4 underline-offset-8 tracking-widest">老年期</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- 1-10 Tile Picker for Selected Stage -->
+      <div id="menu-stage-tiles" class="hidden flex-1 flex-col">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+          <button onclick="closeStageList()" class="glass-panel rounded-2xl px-5 py-2.5 font-black text-gray-800 hover:bg-white transition flex items-center gap-2 text-lg">
+            <span>⬅️</span> 返回四大階段
+          </button>
+          <h2 id="menu-stage-title" class="text-3xl sm:text-4xl font-black"></h2>
+          <div class="w-10 hidden sm:block"></div>
+        </div>
+        <div id="menu-tiles-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       VIEW 3: EXACT 12x12 MONOPOLY BOARD + GLASSMORPHISM SIDE PANEL
+       ===================================================================== -->
+  <section id="view-board" class="hidden pastoral-bg min-h-screen w-full flex-col lg:flex-row items-center lg:items-stretch justify-center gap-4 p-2.5 sm:p-4">
+    <!-- Left / Center: Unobstructed 12x12 Square Board -->
+    <div class="flex-1 flex items-center justify-center w-full">
+      <div class="board-wrapper">
+        <div id="monopoly-board" class="board-grid">
+          <!-- Dynamically populated 44 perimeter tiles + pure white center emblem & 4 diagonal decks -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Right (Landscape/iPad/Desktop) / Bottom (Portrait): Sleek Glassmorphism Facilitator Side Panel -->
+    <aside class="glass-panel rounded-3xl w-full lg:w-[320px] xl:w-[340px] shrink-0 p-4 sm:p-5 flex flex-col justify-between gap-4">
+      <!-- Top Toolbar -->
+      <div>
+        <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-emerald-900/10">
+          <div class="flex items-center gap-2">
+            <span class="text-2xl">🎲</span>
+            <div>
+              <div class="text-xs font-bold text-emerald-700">循道衛理中心 MOSTE</div>
+              <div class="text-lg font-black text-emerald-950 leading-none">生命之旅 控制台</div>
+            </div>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 font-black text-xs">
+            <span id="board-completed-count">0</span> / 40 格
+          </span>
+        </div>
+
+        <!-- Quick Nav Buttons -->
+        <div class="grid grid-cols-2 gap-2 mb-4">
+          <button onclick="switchView('cover')" class="bg-white hover:bg-emerald-50 text-emerald-900 border border-emerald-200 rounded-xl py-2 font-bold text-sm shadow-sm transition">🏠 封面</button>
+          <button onclick="switchView('menu')" class="bg-white hover:bg-amber-50 text-amber-900 border border-amber-200 rounded-xl py-2 font-bold text-sm shadow-sm transition">🗂️ 四期選單</button>
+          <button onclick="toggleSound()" class="sound-toggle-btn bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 rounded-xl py-2 font-bold text-sm shadow-sm flex items-center justify-center gap-1">
+            <span class="sound-icon">🔊</span><span class="sound-label">音效：開</span>
+          </button>
+          <button onclick="openResetConfirm()" class="bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 rounded-xl py-2 font-bold text-sm shadow-sm transition">🔄 重置進度</button>
+        </div>
+
+        <!-- Team Count Selector -->
+        <div class="bg-emerald-50/80 rounded-2xl p-3 mb-3 border border-emerald-200/80">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-black text-emerald-950">分組人數：</span>
+            <div class="flex gap-1">
+              <button onclick="setTeamCount(2)" id="tc-btn-2" class="tc-btn px-3 py-1 rounded-lg text-xs font-black">2 組</button>
+              <button onclick="setTeamCount(3)" id="tc-btn-3" class="tc-btn px-3 py-1 rounded-lg text-xs font-black">3 組</button>
+              <button onclick="setTeamCount(4)" id="tc-btn-4" class="tc-btn px-3 py-1 rounded-lg text-xs font-black">4 組</button>
+            </div>
+          </div>
+          <div id="side-team-list" class="space-y-1.5"></div>
+        </div>
+      </div>
+
+      <!-- Dice Roller Hub -->
+      <div class="bg-white/90 rounded-2xl p-4 border-2 border-emerald-600/20 text-center shadow-inner">
+        <div id="turn-indicator" class="text-sm font-black mb-2 text-gray-700">輪到 紅組 擲骰</div>
+        <button id="btn-roll-dice" onclick="rollDice()" class="w-full py-4 rounded-2xl font-black text-white text-xl sm:text-2xl shadow-[0_6px_0_rgba(0,0,0,0.22)] active:translate-y-1 active:shadow-[0_2px_0_rgba(0,0,0,0.22)] transition-all flex items-center justify-center gap-3">
+          <span id="dice-face" class="text-4xl inline-block">🎲</span>
+          <span id="dice-btn-text">紅組 擲骰仔</span>
+        </button>
+        <p class="text-xs font-bold text-gray-500 mt-3 leading-relaxed">
+          💡 可直接點擊棋盤任何格數開題，或點擊中央 4 個斜角虛線卡區隨機抽題！
+        </p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- =====================================================================
+       TASK / CORNER MODAL OVERLAY (Stage-Specific Authentic Themes)
+       ===================================================================== -->
+  <div id="task-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-2.5 sm:p-5">
+    <div id="task-modal-card" class="relative w-full max-w-4xl max-h-[93vh] rounded-[26px] shadow-2xl flex flex-col overflow-hidden border-4">
+      <!-- Youth Stepped Cyan Corner Blocks (shown only for Youth stage) -->
+      <div id="youth-decor" class="hidden pointer-events-none">
+        <div class="youth-block top-0 left-0 w-24 h-10"></div>
+        <div class="youth-block top-10 left-0 w-12 h-8"></div>
+        <div class="youth-block top-0 right-0 w-28 h-12"></div>
+        <div class="youth-block bottom-0 right-0 w-24 h-12"></div>
+      </div>
+
+      <!-- Modal Header -->
+      <div id="modal-header" class="relative z-10 px-5 sm:px-7 py-4 flex flex-wrap items-center justify-between gap-2 border-b border-black/10">
+        <div class="flex items-center gap-3">
+          <span id="modal-badge" class="px-3.5 py-1 rounded-full text-sm sm:text-base font-black text-white shadow-sm"></span>
+          <h2 id="modal-title" class="text-2xl sm:text-3xl font-black"></h2>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="speakCurrentTask()" class="bg-white/95 hover:bg-white text-gray-800 border border-gray-300 rounded-xl px-3 py-2 font-bold text-sm shadow-sm transition flex items-center gap-1">
+            <span>🔊</span> 朗讀
+          </button>
+          <button id="btn-swap-task" onclick="gentleSwapTask()" class="bg-white/95 hover:bg-amber-50 text-amber-900 border border-amber-300 rounded-xl px-3 py-2 font-bold text-sm shadow-sm transition flex items-center gap-1">
+            <span>🔄</span> 溫和換題
+          </button>
+          <button id="btn-mark-complete" onclick="toggleCurrentTileComplete()" class="rounded-xl px-3.5 py-2 font-bold text-sm shadow-sm transition flex items-center gap-1">
+            <span>✅</span> 標記完成
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Scrollable Content -->
+      <div id="modal-body" class="relative z-10 custom-scroll flex-1 overflow-y-auto p-5 sm:p-8"></div>
+
+      <!-- Modal Footer with Authentic Bottom-Left Cute House SVG Button -->
+      <div class="relative z-10 px-5 sm:px-7 py-3 bg-white/75 backdrop-blur-sm border-t border-black/10 flex items-center justify-between gap-3">
+        <button onclick="closeTaskModal()" class="group flex items-center gap-2.5 bg-white hover:bg-emerald-50 border-2 border-[#1F6E42]/40 rounded-2xl px-4 py-2 shadow-md transition">
+          <!-- Cute Slide House SVG -->
+          <svg class="w-9 h-9 group-hover:scale-110 transition-transform" viewBox="0 0 64 64">
+            <path d="M8,30 L32,10 L56,30" fill="none" stroke="#1F6E42" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14,28 L14,54 L50,54 L50,28 L32,14 Z" fill="#F5ECC8"/>
+            <path d="M26,54 L26,38 C26,34 38,34 38,38 L38,54 Z" fill="#1F6E42"/>
+          </svg>
+          <span id="modal-back-label" class="font-black text-lg text-[#1F6E42]">返回棋盤</span>
+        </button>
+        <div id="modal-footer-extra" class="flex items-center gap-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       CUSTOM RESET CONFIRMATION MODAL (No window.confirm)
+       ===================================================================== -->
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-900/55 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl text-center">
+      <div class="text-5xl mb-3">🔄</div>
+      <h3 class="text-2xl font-black text-gray-900 mb-2">確定重置遊戲進度？</h3>
+      <p class="text-base text-gray-600 mb-6">將會把所有組別棋子移返左下角「起點」，並清除所有已完成格數嘅剔號標記。</p>
+      <div class="flex items-center justify-center gap-3">
+        <button onclick="closeResetConfirm()" class="flex-1 py-3 rounded-2xl bg-gray-100 hover:bg-gray-200 font-bold text-gray-800 text-lg">取消</button>
+        <button onclick="confirmResetGame()" class="flex-1 py-3 rounded-2xl bg-rose-600 hover:bg-rose-700 font-bold text-white text-lg shadow-md">確定重置</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast-box" class="pointer-events-none fixed bottom-6 left-1/2 -translate-x-1/2 z-[140] opacity-0 transition-opacity duration-300 bg-gray-900/90 text-white px-5 py-3 rounded-full font-bold text-base shadow-xl"></div>
+
+  <!-- =====================================================================
+       JAVASCRIPT APPLICATION ENGINE
+       ===================================================================== -->
+  <script>
+    /* =====================================================================
+       1. SOUND EFFECTS (WEB AUDIO API) & CANTONESE SPEECH (zh-HK)
+       ===================================================================== */
+    const SoundFX = {
+      enabled: true,
+      ctx: null,
+      melodyTimer: null,
+
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) this.ctx = new AudioCtx();
+        }
+        if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      },
+
+      playTone(freq, duration = 0.15, type = 'sine', volume = 0.18, delay = 0) {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime + delay;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + duration + 0.02);
+      },
+
+      playDice() {
+        if (!this.enabled) return;
+        for (let i = 0; i < 6; i++) this.playTone(230 + Math.random() * 250, 0.05, 'triangle', 0.15, i * 0.07);
+      },
+      playStep() { this.playTone(540, 0.07, 'sine', 0.14); },
+      playChime() {
+        this.playTone(523.25, 0.2, 'sine', 0.18, 0);
+        this.playTone(659.25, 0.2, 'sine', 0.18, 0.1);
+        this.playTone(783.99, 0.34, 'sine', 0.2, 0.2);
+      },
+      playTick() { this.playTone(880, 0.05, 'square', 0.07); },
+      playBell() {
+        this.playTone(1046.5, 0.5, 'sine', 0.22, 0);
+        this.playTone(1318.5, 0.6, 'sine', 0.16, 0.08);
+      },
+      playHorn() {
+        this.playTone(340, 0.18, 'sawtooth', 0.14, 0);
+        this.playTone(430, 0.18, 'sawtooth', 0.14, 0);
+        this.playTone(340, 0.28, 'sawtooth', 0.14, 0.24);
+        this.playTone(430, 0.28, 'sawtooth', 0.14, 0.24);
+      },
+      playShutter() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        const size = Math.floor(this.ctx.sampleRate * 0.08);
+        const buf = this.ctx.createBuffer(1, size, this.ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < size; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (size * 0.25));
+        const src = this.ctx.createBufferSource();
+        src.buffer = buf;
+        const g = this.ctx.createGain();
+        g.gain.value = 0.25;
+        src.connect(g); g.connect(this.ctx.destination);
+        src.start();
+      },
+      playApplause() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+        for (let i = 0; i < 16; i++) {
+          const delay = i * 0.11 + Math.random() * 0.04;
+          const size = Math.floor(this.ctx.sampleRate * 0.09);
+          const buf = this.ctx.createBuffer(1, size, this.ctx.sampleRate);
+          const data = buf.getChannelData(0);
+          for (let j = 0; j < size; j++) data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (size * 0.35));
+          const src = this.ctx.createBufferSource();
+          src.buffer = buf;
+          const f = this.ctx.createBiquadFilter();
+          f.type = 'bandpass'; f.frequency.value = 1100 + Math.random() * 800;
+          const g = this.ctx.createGain(); g.gain.value = 0.16;
+          src.connect(f); f.connect(g); g.connect(this.ctx.destination);
+          src.start(this.ctx.currentTime + delay);
+        }
+      },
+      stopMelody() {
+        if (this.melodyTimer) { clearTimeout(this.melodyTimer); this.melodyTimer = null; }
+      },
+      playMelody(key) {
+        this.stopMelody();
+        if (!this.enabled) { showToast('請先開啟音效以播放伴奏 🔊'); return; }
+        const melodies = {
+          moon: [[392,0.38],[440,0.38],[392,0.38],[330,0.38],[294,0.38],[330,0.38],[392,0.75],[523,0.38],[440,0.38],[392,0.38],[330,0.38],[294,0.38],[330,0.38],[262,0.75]],
+          spin: [[523,0.34],[523,0.34],[587,0.34],[523,0.34],[440,0.34],[392,0.34],[440,0.68],[392,0.34],[440,0.34],[523,0.34],[440,0.34],[392,0.34],[330,0.34],[262,0.68]],
+          old1: [[330,0.35],[392,0.35],[440,0.5],[523,0.35],[440,0.35],[392,0.65],[330,0.35],[294,0.35],[330,0.7]],
+          old2: [[294,0.28],[392,0.28],[440,0.28],[523,0.45],[440,0.28],[392,0.45],[587,0.35],[523,0.65]],
+          old3: [[392,0.4],[330,0.4],[294,0.4],[262,0.6],[330,0.4],[392,0.4],[440,0.7]],
+          old4: [[523,0.3],[440,0.3],[392,0.3],[440,0.3],[523,0.45],[587,0.3],[523,0.65]]
+        };
+        const notes = melodies[key] || melodies.moon;
+        let idx = 0;
+        const next = () => {
+          if (idx >= notes.length) { this.melodyTimer = null; return; }
+          const [f, d] = notes[idx++];
+          this.playTone(f, d * 0.9, 'sine', 0.16, 0);
+          this.melodyTimer = setTimeout(next, d * 1000);
+        };
+        next();
+      }
+    };
+
+    function toggleSound() {
+      SoundFX.enabled = !SoundFX.enabled;
+      if (!SoundFX.enabled) SoundFX.stopMelody();
+      document.querySelectorAll('.sound-icon').forEach(el => el.textContent = SoundFX.enabled ? '🔊' : '🔇');
+      document.querySelectorAll('.sound-label').forEach(el => el.textContent = SoundFX.enabled ? '音效：開' : '音效：關');
+      if (SoundFX.enabled) SoundFX.playChime();
+    }
+
+    function speakText(text) {
+      if (!('speechSynthesis' in window)) { showToast('此瀏覽器暫不支援語音朗讀'); return; }
+      try {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'zh-HK'; u.rate = 0.88;
+        const voices = window.speechSynthesis.getVoices();
+        const hk = voices.find(v => v.lang.toLowerCase().includes('zh-hk') || v.lang.toLowerCase().includes('yue'))
+                || voices.find(v => v.lang.toLowerCase().includes('zh'));
+        if (hk) u.voice = hk;
+        window.speechSynthesis.speak(u);
+      } catch (e) {}
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      box.textContent = msg;
+      box.classList.remove('opacity-0'); box.classList.add('opacity-100');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => { box.classList.remove('opacity-100'); box.classList.add('opacity-0'); }, 2400);
+    }
+
+    function launchConfetti() {
+      const colors = ['#F59E0B', '#10B981', '#3B82F6', '#EC4899', '#8B5CF6', '#EF4444'];
+      for (let i = 0; i < 28; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.left = (10 + Math.random() * 80) + 'vw';
+        el.style.backgroundColor = colors[i % colors.length];
+        el.style.animationDelay = (Math.random() * 0.35) + 's';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1900);
+      }
+    }
+
+    /* =====================================================================
+       2. CUSTOM CUTE INLINE SVGs FOR BOARD CHARACTERS & CORNERS
+       ===================================================================== */
+    function getStageCharSVG(stage, isGirl) {
+      if (stage === 'infancy') {
+        // Baby M-boy (orange M-cap, blue onesie) / Baby C-girl (brown hair, blue onesie with C)
+        return isGirl ? `
+          <svg viewBox="0 0 64 64" class="w-9 h-9 sm:w-11 sm:h-11">
+            <circle cx="32" cy="24" r="15" fill="#FDE2C8" stroke="#4A3222" stroke-width="2.2"/>
+            <path d="M17,22 C17,9 47,9 47,22 C43,16 25,16 17,22 Z" fill="#6B3E26" stroke="#4A3222" stroke-width="2"/>
+            <circle cx="27" cy="24" r="2" fill="#3B2314"/><circle cx="37" cy="24" r="2" fill="#3B2314"/>
+            <path d="M28,29 Q32,33 36,29" fill="none" stroke="#3B2314" stroke-width="2" stroke-linecap="round"/>
+            <rect x="20" y="38" width="24" height="19" rx="9" fill="#2A75A9" stroke="#4A3222" stroke-width="2.2"/>
+            <text x="32" y="52" text-anchor="middle" font-size="12" font-weight="900" fill="#FDE047">C</text>
+          </svg>
+        ` : `
+          <svg viewBox="0 0 64 64" class="w-9 h-9 sm:w-11 sm:h-11">
+            <circle cx="32" cy="25" r="14" fill="#FDE2C8" stroke="#4A3222" stroke-width="2.2"/>
+            <path d="M17,20 C17,8 47,8 47,20 Z" fill="#F59E0B" stroke="#4A3222" stroke-width="2"/>
+            <path d="M14,20 L50,20" stroke="#4A3222" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="32" y="18" text-anchor="middle" font-size="9" font-weight="900" fill="#DC2626">M</text>
+            <circle cx="27" cy="26" r="2" fill="#3B2314"/><circle cx="37" cy="26" r="2" fill="#3B2314"/>
+            <path d="M28,31 Q32,35 36,31" fill="none" stroke="#3B2314" stroke-width="2" stroke-linecap="round"/>
+            <rect x="20" y="39" width="24" height="18" rx="9" fill="#22808D" stroke="#4A3222" stroke-width="2.2"/>
+            <text x="32" y="52" text-anchor="middle" font-size="11" font-weight="900" fill="#FDE047">M</text>
+          </svg>
+        `;
+      }
+      if (stage === 'youth') {
+        // Youth M-boy & C-girl with sparkling eyes
+        return isGirl ? `
+          <svg viewBox="0 0 64 64" class="w-9 h-9 sm:w-11 sm:h-11">
+            <circle cx="48" cy="24" r="7" fill="#5C3420" stroke="#3B2314" stroke-width="2"/>
+            <circle cx="30" cy="24" r="15" fill="#FDE2C8" stroke="#3B2314" stroke-width="2.2"/>
+            <path d="M15,21 C16,8 45,8 45,21 C39,15 22,15 15,21 Z" fill="#5C3420" stroke="#3B2314" stroke-width="2"/>
+            <circle cx="25" cy="24" r="2.4" fill="#1F2937"/><circle cx="35" cy="24" r="2.4" fill="#1F2937"/>
+            <circle cx="24.3" cy="23.2" r="0.9" fill="#FFF"/><circle cx="34.3" cy="23.2" r="0.9" fill="#FFF"/>
+            <path d="M26,30 Q30,35 34,30" fill="#EF4444" stroke="#3B2314" stroke-width="1.5"/>
+            <rect x="19" y="39" width="22" height="18" rx="6" fill="#EF4444" stroke="#3B2314" stroke-width="2"/>
+            <text x="30" y="52" text-anchor="middle" font-size="11" font-weight="900" fill="#FDE047">C</text>
+          </svg>
+        ` : `
+          <svg viewBox="0 0 64 64" class="w-9 h-9 sm:w-11 sm:h-11">
+            <circle cx="32" cy="25" r="14" fill="#FDE2C8" stroke="#3B2314" stroke-width="2.2"/>
+            <path d="M17,19 C18,7 46,7 47,19 Z" fill="#FACC15" stroke="#3B2314" stroke-width="2"/>
+            <path d="M14,19 L50,19" stroke="#3B2314" stroke-width="2.5" stroke-linecap="round"/>
+            <text x="32" y="17" text-anchor="middle" font-size="9" font-weight="900" fill="#EA580C">M</text>
+            <circle cx="27" cy="26" r="2.3" fill="#1F2937"/><circle cx="37" cy="26" r="2.3" fill="#1F2937"/>
+            <circle cx="26.3" cy="25.2" r="0.9" fill="#FFF"/><circle cx="36.3" cy="25.2" r="0.9" fill="#FFF"/>
+            <path d="M28,31 Q32,36 36,31" fill="#EF4444" stroke="#3B2314" stroke-width="1.5"/>
+            <rect x="21" y="39" width="22" height="18" rx="6" fill="#2563EB" stroke="#3B2314" stroke-width="2"/>
+            <text x="32" y="52" text-anchor="middle" font-size="11" font-weight="900" fill="#FFF">M</text>
+          </svg>
+        `;
+      }
+      if (stage === 'adult') {
+        // Adult man with glasses / Adult woman
+        return isGirl ? `
+          <svg viewBox="0 0 64 64" class="w-9 h-9 sm:w-11 sm:h-11">
+            <path d="M15,34 C15,10 49,10 49,34 Z" fill="#4A2C1D" stroke="#2D1A10" stroke-width="2"/>
+            <circle cx="32" cy="25" r="14" fill="#FDE2C8" stroke="#2D1A10" stroke-width="2.2"/>
+            <circle cx="27" cy="25" r="2" fill="#1F2937"/><circle cx="37" cy="25" r="2" fill="#1F2937"/>
+            <path d="M28,31 Q32,35 36,31" fill="none" stroke="#2D1A10" stroke-width="2" stroke-linecap="round"/>
+            <path d="M19,40 Q32,37 45,40 L48,57 L16,57 Z" fill="#EC4899" stroke="#2D1A10" stroke-width="2"/>
+          </svg>
+        ` : `
+          <svg viewBox="0 0 64 64" class="w-9 h-9 sm:w-11 sm:h-11">
+            <circle cx="32" cy="25" r="14" fill="#FDE2C8" stroke="#1F2937" stroke-width="2.2"/>
+            <path d="M18,20 C19,9 45,9 46,20 C40,14 24,14 18,20 Z" fill="#1F2937"/>
+            <rect x="21" y="21" width="9" height="7" rx="2" fill="#FFF" stroke="#1F2937" stroke-width="2"/>
+            <rect x="34" y="21" width="9" height="7" rx="2" fill="#FFF" stroke="#1F2937" stroke-width="2"/>
+            <line x1="30" y1="24" x2="34" y2="24" stroke="#1F2937" stroke-width="2"/>
+            <circle cx="25.5" cy="24.5" r="1.5" fill="#1F2937"/><circle cx="38.5" cy="24.5" r="1.5" fill="#1F2937"/>
+            <path d="M28,32 Q32,35 36,32" fill="none" stroke="#1F2937" stroke-width="2" stroke-linecap="round"/>
+            <path d="M18,40 Q32,37 46,40 L48,57 L16,57 Z" fill="#0284C7" stroke="#1F2937" stroke-width="2"/>
+          </svg>
+        `;
+      }
+      // Elder: Smiling Grandpa & Grandma
+      return isGirl ? `
+        <svg viewBox="0 0 64 64" class="w-9 h-9 sm:w-11 sm:h-11">
+          <circle cx="32" cy="11" r="6" fill="#CBD5E1" stroke="#334155" stroke-width="2"/>
+          <circle cx="32" cy="26" r="14" fill="#FDE2C8" stroke="#334155" stroke-width="2.2"/>
+          <path d="M18,23 C18,12 46,12 46,23 C41,17 23,17 18,23 Z" fill="#CBD5E1" stroke="#334155" stroke-width="1.8"/>
+          <circle cx="27" cy="26" r="1.8" fill="#1F2937"/><circle cx="37" cy="26" r="1.8" fill="#1F2937"/>
+          <path d="M27,32 Q32,36 37,32" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18,41 Q32,38 46,41 L48,57 L16,57 Z" fill="#8B5CF6" stroke="#334155" stroke-width="2"/>
+        </svg>
+      ` : `
+        <svg viewBox="0 0 64 64" class="w-9 h-9 sm:w-11 sm:h-11">
+          <circle cx="32" cy="25" r="14" fill="#FDE2C8" stroke="#334155" stroke-width="2.2"/>
+          <path d="M17,22 C17,17 21,15 22,19" fill="#CBD5E1" stroke="#334155" stroke-width="2"/>
+          <path d="M47,22 C47,17 43,15 42,19" fill="#CBD5E1" stroke="#334155" stroke-width="2"/>
+          <circle cx="27" cy="25" r="1.8" fill="#1F2937"/><circle cx="37" cy="25" r="1.8" fill="#1F2937"/>
+          <path d="M27,31 Q32,36 37,31" fill="none" stroke="#334155" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18,40 Q32,37 46,40 L48,57 L16,57 Z" fill="#64748B" stroke="#334155" stroke-width="2"/>
+        </svg>
+      `;
+    }
+
+    function getCornerCoupleSVG(key) {
+      if (key === 'start') {
+        return `<div class="flex items-center -space-x-2">${getStageCharSVG('infancy', false)}${getStageCharSVG('infancy', true)}</div>`;
+      }
+      if (key === 'applause') {
+        return `<div class="flex items-center -space-x-2">${getStageCharSVG('youth', false)}${getStageCharSVG('youth', true)}</div>`;
+      }
+      if (key === 'tea') {
+        return `<div class="relative flex items-center -space-x-2">${getStageCharSVG('adult', false)}${getStageCharSVG('adult', true)}<span class="absolute -top-1 left-1/2 -translate-x-1/2 text-xs">❤️</span></div>`;
+      }
+      return `<div class="flex items-center -space-x-2">${getStageCharSVG('elder', false)}${getStageCharSVG('elder', true)}</div>`;
+    }
+
+    /* =====================================================================
+       3. STAGE DEFINITIONS, 4 CORNERS & FULL 40-TASK DATA
+       ===================================================================== */
+    const STAGES = {
+      infancy: { id: 'infancy', name: '幼兒期', emoji: '👶', themeClass: 'theme-infancy', accent: '#E67324', text: '#C25114' },
+      youth:   { id: 'youth',   name: '青年期', emoji: '🌟', themeClass: 'theme-youth',   accent: '#00BCC6', text: '#E66E24' },
+      adult:   { id: 'adult',   name: '成年期', emoji: '💼', themeClass: 'theme-adult',   accent: '#4A7C59', text: '#356042' },
+      elder:   { id: 'elder',   name: '老年期', emoji: '🍵', themeClass: 'theme-elder',   accent: '#6B6257', text: '#2C2C2C' }
+    };
+
+    // Exact Clockwise 44-Space Path starting from Bottom-Left Corner (Index 0)
+    const CORNERS = {
+      0:  { index: 0,  cornerKey: 'start',    title: '起點',         emoji: '🚩', accent: '#15803D', desc: '歡迎各位老友一齊展開《生命之旅》！由幼兒期出發，準備好就擲骰啦！' },
+      11: { index: 11, cornerKey: 'applause', title: '全場掌聲',     emoji: '👏', accent: '#D97706', desc: '恭喜行到開心角落！全場一齊拍掌鼓勵自己同身邊嘅老友！' },
+      22: { index: 22, cornerKey: 'tea',      title: '飲啖茶唞一唞', emoji: '🍵', accent: '#0284C7', desc: '大家飲啖水、唞一唞、伸下懶腰，放鬆一下再繼續旅程！' },
+      33: { index: 33, cornerKey: 'choose',   title: '自由揀題',     emoji: '⭐', accent: '#7E22CE', desc: '幸運角落！老友可以自由揀選棋盤上任何一格心水題目嚟玩！' }
+    };
+
+    const TASKS = [
+      // LEFT EDGE (Bottom to Top, 1..10): 幼兒期 (boardIndex 1..10)
+      { boardIndex: 1,  stage: 'infancy', num: 1,  icon: '🎤', title: '童謠',         prompt: '唱一首小時候的童謠', widget: 'infancy_1' },
+      { boardIndex: 2,  stage: 'infancy', num: 2,  icon: '🍎', title: '水果名',       prompt: '說出 2 - 3 種水果', widget: 'infancy_2' },
+      { boardIndex: 3,  stage: 'infancy', num: 3,  icon: '👅', title: '舌頭運動',     prompt: '舌頭輪流向左右兩邊伸展各 5 次', widget: 'infancy_3' },
+      { boardIndex: 4,  stage: 'infancy', num: 4,  icon: '🎂', title: '生日吹蠟燭',   prompt: '模仿生日派對時吹蠟燭：吹 party horn 5 次', widget: 'infancy_4' },
+      { boardIndex: 5,  stage: 'infancy', num: 5,  icon: '😋', title: '表情多多',     prompt: '做出 emoji 圖案的表情（共 4 個）', widget: 'infancy_5' },
+      { boardIndex: 6,  stage: 'infancy', num: 6,  icon: '🎒', title: '猜物件',       prompt: '伸手入袋中估物件', widget: 'infancy_6' },
+      { boardIndex: 7,  stage: 'infancy', num: 7,  icon: '🌠', title: '我的夢想',     prompt: '分享童年時的最大夢想', widget: 'infancy_7' },
+      { boardIndex: 8,  stage: 'infancy', num: 8,  icon: '🏮', title: '最愛節日',     prompt: '分享童年時最喜歡的節日和原因', widget: 'infancy_8' },
+      { boardIndex: 9,  stage: 'infancy', num: 9,  icon: '😂', title: '哈哈大笑',     prompt: '一起哈哈大笑 10 次', widget: 'infancy_9' },
+      { boardIndex: 10, stage: 'infancy', num: 10, icon: '➕', title: '簡單計數',     prompt: '試完成 5 條簡單數學題', widget: 'infancy_10' },
+
+      // TOP EDGE (Left to Right, 1..10): 青年期 (boardIndex 12..21)
+      { boardIndex: 12, stage: 'youth', num: 1,  icon: '✌️', title: '猜包剪揼',       prompt: '與姑娘或者隔離老友對戰，三盤兩勝', widget: 'youth_1' },
+      { boardIndex: 13, stage: 'youth', num: 2,  icon: '🟦', title: '拋豆袋',         prompt: '完成基礎任務或升級挑戰拋豆袋', widget: 'youth_2' },
+      { boardIndex: 14, stage: 'youth', num: 3,  icon: '👔', title: '初次工作',       prompt: '分享你第一份工作、當時幾多歲及點解揀呢份工', widget: 'youth_3' },
+      { boardIndex: 15, stage: 'youth', num: 4,  icon: '🤫', title: '青春回味猜猜樂', prompt: '用動作表演後生時最鍾意嘅活動，不能說話，等其他老友估！', widget: 'youth_4' },
+      { boardIndex: 16, stage: 'youth', num: 5,  icon: '⭐', title: '估明星',         prompt: '考考你！根據線索估下係邊位經典明星', widget: 'youth_5' },
+      { boardIndex: 17, stage: 'youth', num: 6,  icon: '🎵', title: '懷舊名曲估估下', prompt: '聽旋律同線索，估經典懷舊金曲及原唱歌手', widget: 'youth_6' },
+      { boardIndex: 18, stage: 'youth', num: 7,  icon: '💡', title: '生活情境解難',   prompt: '生活應變與購物找續考考你', widget: 'youth_7' },
+      { boardIndex: 19, stage: 'youth', num: 8,  icon: '🗣️', title: '老師話',         prompt: '只有聽到「老師話」先可以跟住做動作', widget: 'youth_8' },
+      { boardIndex: 20, stage: 'youth', num: 9,  icon: '🔗', title: '詞語接龍遊戲',   prompt: '接最後一個字，組成新詞語', widget: 'youth_9' },
+      { boardIndex: 21, stage: 'youth', num: 10, icon: '📸', title: '模仿拍照表情',   prompt: '嘴唇向橫拉開咧嘴笑，重複 5 次', widget: 'youth_10' },
+
+      // RIGHT EDGE (Top to Bottom, 1..10): 成年期 (boardIndex 23..32)
+      { boardIndex: 23, stage: 'adult', num: 1,  icon: '🎱', title: '六合彩遊戲',     prompt: '每人抽一張 1-10 撲克牌，主持人攪珠抽號碼，相同者獲勝', widget: 'adult_1' },
+      { boardIndex: 24, stage: 'adult', num: 2,  icon: '🃏', title: '買大細',         prompt: '主持人公開一張 1-10 牌，老友猜自己張牌較大定較細', widget: 'adult_2' },
+      { boardIndex: 25, stage: 'adult', num: 3,  icon: '🏙️', title: '估地方',         prompt: '請猜猜以下 5 個香港經典懷舊地方', widget: 'adult_3' },
+      { boardIndex: 26, stage: 'adult', num: 4,  icon: '🚌', title: '追巴士',         prompt: '請腳踏 20 下追經典 11D 樂富巴士', widget: 'adult_4' },
+      { boardIndex: 27, stage: 'adult', num: 5,  icon: '💍', title: '結婚形式',       prompt: '一齊傾下西式、中式同現代婚禮習俗嘅分別', widget: 'adult_5' },
+      { boardIndex: 28, stage: 'adult', num: 6,  icon: '💐', title: '結識伴侶',       prompt: '分享當時是如何結識伴侶的', widget: 'adult_6' },
+      { boardIndex: 29, stage: 'adult', num: 7,  icon: '🛠️', title: '我的職業',       prompt: '請分享以往職業嘅工作內容同難忘事', widget: 'adult_7' },
+      { boardIndex: 30, stage: 'adult', num: 8,  icon: '💵', title: '第一次出糧',     prompt: '請分享第一次出糧點樣用', widget: 'adult_8' },
+      { boardIndex: 31, stage: 'adult', num: 9,  icon: '👕', title: '「家務王」',     prompt: '限時 1 分鐘內摺好 2 件衫、5 對襪', widget: 'adult_9' },
+      { boardIndex: 32, stage: 'adult', num: 10, icon: '🧳', title: '「初次出走」',   prompt: '談一次難忘旅行，描述風景同感受', widget: 'adult_10' },
+
+      // BOTTOM EDGE (Right to Left, 1..10): 老年期 (boardIndex 34..43)
+      { boardIndex: 34, stage: 'elder', num: 1,  icon: '🌿', title: '百年歸老時，想用咩形式？', prompt: '透過正視生命來「活好當下」，輕鬆傾下宗教儀式或綠色殯葬', widget: 'elder_1' },
+      { boardIndex: 35, stage: 'elder', num: 2,  icon: '☯️', title: '雲手太極',       prompt: '跟住節奏一齊做坐式雲手太極（銀鈴護士站 1:16 起）', widget: 'elder_2' },
+      { boardIndex: 36, stage: 'elder', num: 3,  icon: '🙆', title: '上肢關節活動 3 式', prompt: '一齊完成深呼吸、轉膊頭、抱 BB 三式舒展動作', widget: 'elder_3' },
+      { boardIndex: 37, stage: 'elder', num: 4,  icon: '🧠', title: '最強記憶',       prompt: '睇圖 30 秒後自動遮起，講出剛才圖畫上見到嘅東西', widget: 'elder_4' },
+      { boardIndex: 38, stage: 'elder', num: 5,  icon: '🙏', title: '講出今日或最近感恩的三件事', prompt: '分享今日或最近令你感到感恩嘅三件事', widget: 'elder_5' },
+      { boardIndex: 39, stage: 'elder', num: 6,  icon: '🗣️', title: '鬥長氣',         prompt: '各位朋友一起發出「啊——」長音，最耐勝出', widget: 'elder_6' },
+      { boardIndex: 40, stage: 'elder', num: 7,  icon: '🚇', title: '地鐵站名',       prompt: '估模糊港鐵站名，並講出尖沙咀及油麻地前後站名', widget: 'elder_7' },
+      { boardIndex: 41, stage: 'elder', num: 8,  icon: '🏡', title: '尋根',           prompt: '你鄉下係邊？點樣嚟香港的？', widget: 'elder_8' },
+      { boardIndex: 42, stage: 'elder', num: 9,  icon: '🥟', title: '講出 2-3 款點心', prompt: '講出你最鍾意嘅 2-3 款飲茶點心', widget: 'elder_9' },
+      { boardIndex: 43, stage: 'elder', num: 10, icon: '🃏', title: '估大細',         prompt: '先抽一張撲克牌，再估下一張牌較呢張大定細', widget: 'elder_10' }
+    ];
+
+    const TASK_BY_INDEX = {};
+    TASKS.forEach(t => TASK_BY_INDEX[t.boardIndex] = t);
+
+    /* =====================================================================
+       4. GLOBAL STATE
+       ===================================================================== */
+    const state = {
+      currentView: 'cover',
+      previousViewForModal: 'board',
+      teamCount: 2,
+      currentTeam: 0,
+      teams: [
+        { name: '紅組', emoji: '🔴', color: '#EF4444', pos: 0 },
+        { name: '藍組', emoji: '🔵', color: '#3B82F6', pos: 0 },
+        { name: '綠組', emoji: '🟢', color: '#10B981', pos: 0 },
+        { name: '黃組', emoji: '🟡', color: '#F59E0B', pos: 0 }
+      ],
+      completedTiles: new Set(),
+      isRolling: false,
+      activeTileIndex: null,
+      activeTimers: [],
+      activeMediaStreams: [],
+      mptBestRecord: 0
+    };
+
+    /* =====================================================================
+       5. NAVIGATION & RESOURCE CLEANUP
+       ===================================================================== */
+    function switchView(viewName) {
+      cleanupActiveResources();
+      state.currentView = viewName;
+      ['cover', 'menu', 'board'].forEach(v => {
+        const el = document.getElementById('view-' + v);
+        if (v === viewName) { el.classList.remove('hidden'); el.classList.add('flex'); }
+        else { el.classList.add('hidden'); el.classList.remove('flex'); }
+      });
+      if (viewName === 'board') renderBoard();
+      else if (viewName === 'menu') { updateMenuProgress(); closeStageList(); }
+    }
+
+    function cleanupActiveResources() {
+      state.activeTimers.forEach(id => clearInterval(id));
+      state.activeTimers = [];
+      SoundFX.stopMelody();
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      state.activeMediaStreams.forEach(s => { try { s.getTracks().forEach(t => t.stop()); } catch(e){} });
+      state.activeMediaStreams = [];
+      if (window._micAudioCtx) { try { window._micAudioCtx.close(); } catch(e){} window._micAudioCtx = null; }
+      if (window._micRaf) { cancelAnimationFrame(window._micRaf); window._micRaf = null; }
+    }
+
+    /* =====================================================================
+       6. FOUR-STAGE DIRECT MENU LOGIC
+       ===================================================================== */
+    function updateMenuProgress() {
+      ['infancy', 'youth', 'adult', 'elder'].forEach(st => {
+        const cnt = TASKS.filter(t => t.stage === st && state.completedTiles.has(t.boardIndex)).length;
+        const el = document.getElementById('progress-' + st);
+        if (el) el.textContent = `已完成 ${cnt}/10`;
+      });
+    }
+
+    function openStageList(stageKey) {
+      const st = STAGES[stageKey];
+      document.getElementById('menu-stage-overview').classList.add('hidden');
+      const tilesView = document.getElementById('menu-stage-tiles');
+      tilesView.classList.remove('hidden'); tilesView.classList.add('flex');
+
+      const titleEl = document.getElementById('menu-stage-title');
+      titleEl.innerHTML = `${st.emoji} ${st.name}`;
+      titleEl.style.color = st.text;
+
+      const container = document.getElementById('menu-tiles-container');
+      container.innerHTML = '';
+      TASKS.filter(t => t.stage === stageKey).forEach(task => {
+        const done = state.completedTiles.has(task.boardIndex);
+        const btn = document.createElement('button');
+        btn.className = 'relative rounded-2xl p-4 text-left shadow-md hover:scale-[1.03] transition-all border-2 flex flex-col justify-between min-h-[130px] bg-white/90';
+        btn.style.borderColor = done ? '#10B981' : st.accent;
+        btn.onclick = () => openSpaceModal(task.boardIndex, 'menu');
+        btn.innerHTML = `
+          <div class="flex items-center justify-between w-full mb-2">
+            <span class="w-9 h-9 rounded-full flex items-center justify-center font-black text-white text-lg" style="background:${st.accent}">${task.num}</span>
+            <span class="text-3xl">${task.icon}</span>
+          </div>
+          <div class="font-black text-lg text-gray-900 leading-snug">${task.title}</div>
+          ${done ? '<span class="absolute top-2 right-2 bg-emerald-500 text-white text-[11px] font-black px-2 py-0.5 rounded-full">✓ 已完成</span>' : ''}
+        `;
+        container.appendChild(btn);
+      });
+    }
+
+    function closeStageList() {
+      document.getElementById('menu-stage-overview').classList.remove('hidden');
+      const tilesView = document.getElementById('menu-stage-tiles');
+      tilesView.classList.add('hidden'); tilesView.classList.remove('flex');
+      updateMenuProgress();
+    }
+
+    /* =====================================================================
+       7. EXACT 12x12 BOARD RENDERING & SIDE PANEL SYNC
+       ===================================================================== */
+    function getGridPos(index) {
+      // Index 0 = Bottom-Left Corner (row 12, col 1)
+      if (index === 0) return { row: 12, col: 1 };
+      // Left Edge (Bottom to Top, 1..10): rows 11..2, col 1
+      if (index >= 1 && index <= 10) return { row: 12 - index, col: 1, edge: 'edge-left' };
+      // Index 11 = Top-Left Corner (row 1, col 1)
+      if (index === 11) return { row: 1, col: 1 };
+      // Top Edge (Left to Right, 1..10): row 1, cols 2..11
+      if (index >= 12 && index <= 21) return { row: 1, col: index - 10, edge: 'edge-top' };
+      // Index 22 = Top-Right Corner (row 1, col 12)
+      if (index === 22) return { row: 1, col: 12 };
+      // Right Edge (Top to Bottom, 1..10): rows 2..11, col 12
+      if (index >= 23 && index <= 32) return { row: index - 21, col: 12, edge: 'edge-right' };
+      // Index 33 = Bottom-Right Corner (row 12, col 12)
+      if (index === 33) return { row: 12, col: 12 };
+      // Bottom Edge (Right to Left, 1..10): row 12, cols 11..2
+      return { row: 12, col: 12 - (index - 33), edge: 'edge-bottom' };
+    }
+
+    function renderBoard() {
+      const boardEl = document.getElementById('monopoly-board');
+      boardEl.innerHTML = '';
+
+      for (let i = 0; i < 44; i++) {
+        const pos = getGridPos(i);
+        const tileEl = document.createElement('div');
+        tileEl.id = `board-tile-${i}`;
+        tileEl.style.gridRow = pos.row;
+        tileEl.style.gridColumn = pos.col;
+
+        if (CORNERS[i]) {
+          const c = CORNERS[i];
+          tileEl.className = 'board-tile corner-tile';
+          tileEl.title = `${c.title}：${c.desc}`;
+          tileEl.onclick = () => openSpaceModal(i, 'board');
+          tileEl.innerHTML = `
+            ${getCornerCoupleSVG(c.cornerKey)}
+            <div class="text-[9px] sm:text-[11px] font-black leading-tight text-center mt-0.5 px-1 rounded bg-white/80" style="color:${c.accent}">${c.title}</div>
+          `;
+        } else {
+          const task = TASK_BY_INDEX[i];
+          const done = state.completedTiles.has(i);
+          const isGirl = task.num % 2 === 0;
+          tileEl.className = `board-tile ${pos.edge}`;
+          tileEl.title = `${STAGES[task.stage].name} ${task.num}：${task.title}`;
+          tileEl.onclick = () => openSpaceModal(i, 'board');
+
+          const charZone = `<div class="tile-char-zone">${getStageCharSVG(task.stage, isGirl)}</div>`;
+          const numStrip = `<div class="tile-num-strip">${task.num}</div>`;
+
+          // Respect inner-facing strip placement for every edge
+          if (pos.edge === 'edge-left' || pos.edge === 'edge-top') {
+            tileEl.innerHTML = charZone + numStrip;
+          } else {
+            tileEl.innerHTML = numStrip + charZone;
+          }
+
+          if (done) {
+            const check = document.createElement('span');
+            check.className = 'absolute top-0.5 right-0.5 w-3.5 h-3.5 rounded-full bg-emerald-600 text-white text-[9px] font-black flex items-center justify-center shadow z-25';
+            check.textContent = '✓';
+            tileEl.appendChild(check);
+          }
+        }
+
+        // Render Pawns on this tile
+        const pawnWrap = document.createElement('div');
+        pawnWrap.className = 'pawn-wrap';
+        for (let t = 0; t < state.teamCount; t++) {
+          if (state.teams[t].pos === i) {
+            const dot = document.createElement('div');
+            dot.className = 'pawn-token';
+            dot.style.backgroundColor = state.teams[t].color;
+            dot.title = state.teams[t].name;
+            pawnWrap.appendChild(dot);
+          }
+        }
+        tileEl.appendChild(pawnWrap);
+        boardEl.appendChild(tileEl);
+      }
+
+      // Pure White Center with Methodist Centre Curved SVG Emblem & 4 Diagonal Dashed Card Zones
+      const center = document.createElement('div');
+      center.className = 'board-center';
+      center.innerHTML = `
+        <!-- Top-Left Diagonal Deck: 成年期 -->
+        <button onclick="drawRandomStageCard('adult')" title="隨機抽取一格「成年期」題目" class="diag-deck diag-deck-tl">
+          <span class="outlined-stage-label" style="color:#63CCC0;">成年期</span>
+        </button>
+
+        <!-- Top-Right Diagonal Deck: 老年期 -->
+        <button onclick="drawRandomStageCard('elder')" title="隨機抽取一格「老年期」題目" class="diag-deck diag-deck-tr">
+          <span class="outlined-stage-label" style="color:#71A6DE;">老年期</span>
+        </button>
+
+        <!-- Bottom-Left Diagonal Deck: 青年期 -->
+        <button onclick="drawRandomStageCard('youth')" title="隨機抽取一格「青年期」題目" class="diag-deck diag-deck-bl">
+          <span class="outlined-stage-label" style="color:#F59B38;">青年期</span>
+        </button>
+
+        <!-- Bottom-Right Diagonal Deck: 幼兒期 (嬰兒／幼兒期) -->
+        <button onclick="drawRandomStageCard('infancy')" title="隨機抽取一格「嬰兒／幼兒期」題目" class="diag-deck diag-deck-br">
+          <span class="outlined-stage-label" style="color:#F4A298;">幼兒期</span>
+        </button>
+
+        <!-- Authentic Center Methodist Centre Emblem with Arched Top & Bottom Text -->
+        <svg viewBox="0 0 360 360" class="w-[62%] h-[62%] select-none pointer-events-none" aria-label="循道衛理中心 Methodist Centre">
+          <defs>
+            <path id="topArc" d="M 62,180 A 118,118 0 0,1 298,180" />
+            <path id="botArc" d="M 52,185 A 128,128 0 0,0 308,185" />
+          </defs>
+          <!-- Top Arched English Text -->
+          <text fill="#007A4D" font-size="27" font-family="Georgia, 'Times New Roman', serif" font-weight="600" letter-spacing="1.5">
+            <textPath href="#topArc" startOffset="50%" text-anchor="middle">Methodist Centre</textPath>
+          </text>
+          <!-- Center Emblem Outline & Bold Green M -->
+          <g transform="translate(88, 92) scale(1.53)">
+            <path d="M10,60 L40,30 C44,14 76,14 80,30 L110,60 C100,92 80,106 60,106 C40,106 20,92 10,60 Z" fill="#FFFFFF" stroke="#007A4D" stroke-width="3.2" stroke-linejoin="round"/>
+            <path d="M33,86 L33,44 L60,64 L87,44 L87,86 L72,86 L72,65 L60,75 L48,65 L48,86 Z" fill="#007A4D"/>
+          </g>
+          <!-- Bottom Arched Traditional Chinese Text -->
+          <text fill="#007A4D" font-size="29" font-weight="900" letter-spacing="10">
+            <textPath href="#botArc" startOffset="50%" text-anchor="middle">循道衛理中心</textPath>
+          </text>
+        </svg>
+      `;
+      boardEl.appendChild(center);
+
+      updateSidePanel();
+    }
+
+    function updateSidePanel() {
+      document.getElementById('board-completed-count').textContent = state.completedTiles.size;
+
+      // Team count buttons
+      [2, 3, 4].forEach(n => {
+        const b = document.getElementById('tc-btn-' + n);
+        if (b) {
+          b.className = state.teamCount === n
+            ? 'tc-btn px-3 py-1 rounded-lg text-xs font-black bg-[#1F8A4C] text-white shadow'
+            : 'tc-btn px-3 py-1 rounded-lg text-xs font-black bg-white text-emerald-900 border border-emerald-200';
+        }
+      });
+
+      // Team turn list
+      const listEl = document.getElementById('side-team-list');
+      listEl.innerHTML = state.teams.slice(0, state.teamCount).map((tm, idx) => {
+        const active = state.currentTeam === idx;
+        const locName = CORNERS[tm.pos] ? CORNERS[tm.pos].title : `${STAGES[TASK_BY_INDEX[tm.pos].stage].name} ${TASK_BY_INDEX[tm.pos].num}`;
+        return `
+          <button onclick="selectActiveTeam(${idx})" class="w-full flex items-center justify-between px-3 py-2 rounded-xl border-2 transition text-left ${active ? 'bg-white shadow-md scale-[1.02]' : 'bg-white/60 opacity-80 hover:opacity-100'}" style="border-color:${active ? tm.color : 'transparent'}">
+            <div class="flex items-center gap-2">
+              <span class="w-3.5 h-3.5 rounded-full shadow-sm" style="background:${tm.color}"></span>
+              <span class="font-black text-sm text-gray-900">${tm.name}</span>
+              ${active ? '<span class="text-[10px] bg-gray-900 text-white px-1.5 py-0.5 rounded-full font-bold">目前回合</span>' : ''}
+            </div>
+            <span class="text-xs font-bold text-gray-600">${locName}</span>
+          </button>
+        `;
+      }).join('');
+
+      // Dice Button styling
+      const curTeam = state.teams[state.currentTeam];
+      document.getElementById('turn-indicator').textContent = `輪到 ${curTeam.emoji} ${curTeam.name} 擲骰`;
+      document.getElementById('dice-btn-text').textContent = `${curTeam.name} 擲骰仔`;
+      const btn = document.getElementById('btn-roll-dice');
+      btn.style.background = `linear-gradient(135deg, ${curTeam.color}, #1F2937)`;
+      btn.disabled = state.isRolling;
+    }
+
+    function drawRandomStageCard(stageKey) {
+      const stageTasks = TASKS.filter(t => t.stage === stageKey);
+      const unplayed = stageTasks.filter(t => !state.completedTiles.has(t.boardIndex));
+      const pool = unplayed.length > 0 ? unplayed : stageTasks;
+      const picked = pool[Math.floor(Math.random() * pool.length)];
+      SoundFX.playDice();
+      showToast(`從「${STAGES[stageKey].name}」抽出第 ${picked.num} 格：${picked.title}`);
+      openSpaceModal(picked.boardIndex, 'board');
+    }
+
+    function setTeamCount(n) {
+      state.teamCount = n;
+      if (state.currentTeam >= n) state.currentTeam = 0;
+      renderBoard();
+    }
+
+    function selectActiveTeam(idx) {
+      if (state.isRolling) return;
+      state.currentTeam = idx;
+      updateSidePanel();
+    }
+
+    function rollDice() {
+      if (state.isRolling) return;
+      state.isRolling = true;
+      SoundFX.playDice();
+
+      const diceEl = document.getElementById('dice-face');
+      const faces = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+      if (diceEl) diceEl.classList.add('dice-rolling');
+
+      let ticks = 0;
+      const rollInt = setInterval(() => {
+        if (diceEl) diceEl.textContent = faces[Math.floor(Math.random() * 6)];
+        ticks++;
+        if (ticks >= 10) {
+          clearInterval(rollInt);
+          const result = Math.floor(Math.random() * 6) + 1;
+          if (diceEl) { diceEl.classList.remove('dice-rolling'); diceEl.textContent = faces[result - 1]; }
+          showToast(`${state.teams[state.currentTeam].name} 擲出 ${result} 點！`);
+          moveCurrentTeamSteps(result);
+        }
+      }, 65);
+    }
+
+    function moveCurrentTeamSteps(steps) {
+      const teamIdx = state.currentTeam;
+      let moved = 0;
+      const stepInt = setInterval(() => {
+        state.teams[teamIdx].pos = (state.teams[teamIdx].pos + 1) % 44;
+        SoundFX.playStep();
+        renderBoard();
+        const tileEl = document.getElementById(`board-tile-${state.teams[teamIdx].pos}`);
+        if (tileEl) tileEl.classList.add('active-landed');
+
+        moved++;
+        if (moved >= steps) {
+          clearInterval(stepInt);
+          const landedPos = state.teams[teamIdx].pos;
+          setTimeout(() => {
+            state.isRolling = false;
+            state.currentTeam = (state.currentTeam + 1) % state.teamCount;
+            renderBoard();
+            openSpaceModal(landedPos, 'board');
+          }, 420);
+        }
+      }, 230);
+    }
+
+    function openResetConfirm() { document.getElementById('reset-modal').classList.remove('hidden'); }
+    function closeResetConfirm() { document.getElementById('reset-modal').classList.add('hidden'); }
+    function confirmResetGame() {
+      state.teams.forEach(t => t.pos = 0);
+      state.currentTeam = 0;
+      state.completedTiles.clear();
+      closeResetConfirm();
+      renderBoard();
+      showToast('已重置所有組別與完成進度！');
+    }
+
+    /* =====================================================================
+       8. MODAL CONTROLLER WITH AUTHENTIC STAGE THEMES
+       ===================================================================== */
+    function openSpaceModal(boardIndex, sourceView = 'board') {
+      cleanupActiveResources();
+      state.activeTileIndex = boardIndex;
+      state.previousViewForModal = sourceView;
+
+      const modal = document.getElementById('task-modal');
+      const card = document.getElementById('task-modal-card');
+      const youthDecor = document.getElementById('youth-decor');
+      const badge = document.getElementById('modal-badge');
+      const title = document.getElementById('modal-title');
+      const body = document.getElementById('modal-body');
+      const completeBtn = document.getElementById('btn-mark-complete');
+      const swapBtn = document.getElementById('btn-swap-task');
+      const backLabel = document.getElementById('modal-back-label');
+      const footerExtra = document.getElementById('modal-footer-extra');
+
+      backLabel.textContent = sourceView === 'menu' ? '返回選單' : '返回棋盤';
+      footerExtra.innerHTML = '';
+      card.className = 'relative w-full max-w-4xl max-h-[93vh] rounded-[26px] shadow-2xl flex flex-col overflow-hidden border-4';
+      youthDecor.classList.add('hidden');
+
+      if (CORNERS[boardIndex]) {
+        const c = CORNERS[boardIndex];
+        card.classList.add('bg-[#EFF7EC]', 'border-[#1F8A4C]');
+        badge.style.backgroundColor = c.accent;
+        badge.textContent = '輕鬆互動角落';
+        title.style.color = c.accent;
+        title.textContent = `${c.emoji} ${c.title}`;
+        completeBtn.classList.add('hidden');
+        swapBtn.classList.add('hidden');
+        renderCornerWidget(c, body);
+      } else {
+        const task = TASK_BY_INDEX[boardIndex];
+        const st = STAGES[task.stage];
+        card.classList.add(st.themeClass);
+        if (task.stage === 'youth') youthDecor.classList.remove('hidden');
+        badge.style.backgroundColor = st.accent;
+        badge.textContent = `${st.name} · 第 ${task.num} 格`;
+        title.style.color = st.text;
+        title.textContent = `${task.icon} ${task.title}`;
+        completeBtn.classList.remove('hidden');
+        swapBtn.classList.remove('hidden');
+        updateCompleteButtonUI();
+        renderTaskWidget(task, body, footerExtra);
+      }
+
+      modal.classList.remove('hidden');
+      SoundFX.playChime();
+    }
+
+    function closeTaskModal() {
+      cleanupActiveResources();
+      document.getElementById('task-modal').classList.add('hidden');
+      if (state.currentView === 'board') renderBoard();
+      else if (state.currentView === 'menu') {
+        const tilesVisible = !document.getElementById('menu-stage-tiles').classList.contains('hidden');
+        if (tilesVisible && TASK_BY_INDEX[state.activeTileIndex]) {
+          openStageList(TASK_BY_INDEX[state.activeTileIndex].stage);
+        }
+        updateMenuProgress();
+      }
+    }
+
+    function gentleSwapTask() {
+      const current = TASK_BY_INDEX[state.activeTileIndex];
+      if (!current) return;
+      const sameStage = TASKS.filter(t => t.stage === current.stage && t.boardIndex !== current.boardIndex);
+      const next = sameStage[Math.floor(Math.random() * sameStage.length)];
+      showToast(`已溫和換題：${STAGES[next.stage].name} 第 ${next.num} 格「${next.title}」`);
+      openSpaceModal(next.boardIndex, state.previousViewForModal);
+    }
+
+    function updateCompleteButtonUI() {
+      const btn = document.getElementById('btn-mark-complete');
+      const done = state.completedTiles.has(state.activeTileIndex);
+      btn.className = done
+        ? 'bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl px-3.5 py-2 font-bold text-sm shadow-sm transition flex items-center gap-1'
+        : 'bg-white/95 hover:bg-emerald-50 text-emerald-800 border border-emerald-300 rounded-xl px-3.5 py-2 font-bold text-sm shadow-sm transition flex items-center gap-1';
+      btn.innerHTML = done ? '<span>✓</span> 已完成' : '<span>✅</span> 標記完成';
+    }
+
+    function toggleCurrentTileComplete() {
+      if (state.activeTileIndex === null || CORNERS[state.activeTileIndex]) return;
+      if (state.completedTiles.has(state.activeTileIndex)) state.completedTiles.delete(state.activeTileIndex);
+      else { state.completedTiles.add(state.activeTileIndex); SoundFX.playChime(); showToast('好叻呀！已標記呢一格完成 🎉'); }
+      updateCompleteButtonUI();
+    }
+
+    function speakCurrentTask() {
+      if (CORNERS[state.activeTileIndex]) {
+        const c = CORNERS[state.activeTileIndex];
+        speakText(`${c.title}。${c.desc}`);
+      } else if (TASK_BY_INDEX[state.activeTileIndex]) {
+        const t = TASK_BY_INDEX[state.activeTileIndex];
+        speakText(`${STAGES[t.stage].name}，第${t.num}格，${t.title}。${t.prompt}`);
+      }
+    }
+
+    /* =====================================================================
+       9. CORNER WIDGETS
+       ===================================================================== */
+    function renderCornerWidget(corner, container) {
+      if (corner.cornerKey === 'start') {
+        container.innerHTML = `
+          <div class="text-center py-6">
+            <div class="flex justify-center mb-4 scale-150">${getCornerCoupleSVG('start')}</div>
+            <h3 class="text-3xl font-black text-emerald-800 mb-3">🚩 歡迎來到《生命之旅》起點！</h3>
+            <p class="text-xl text-gray-700 font-bold max-w-xl mx-auto mb-6">${corner.desc}</p>
+            <button onclick="SoundFX.playApplause(); launchConfetti();" class="bg-[#1F8A4C] hover:bg-[#176c3a] text-white rounded-2xl px-8 py-4 font-black text-xl shadow-lg transition">
+              🎉 一齊拍手正式出發！
+            </button>
+          </div>
+        `;
+      } else if (corner.cornerKey === 'applause') {
+        SoundFX.playApplause(); launchConfetti();
+        container.innerHTML = `
+          <div class="text-center py-6">
+            <div class="text-7xl mb-4 animate-bounce">👏👏👏</div>
+            <h3 class="text-3xl sm:text-4xl font-black text-amber-700 mb-3">全場熱烈掌聲！</h3>
+            <p class="text-xl text-gray-700 font-bold max-w-xl mx-auto mb-6">${corner.desc}</p>
+            <button onclick="SoundFX.playApplause(); launchConfetti();" class="bg-amber-500 hover:bg-amber-600 text-white rounded-2xl px-8 py-4 font-black text-xl shadow-lg transition">
+              👏 再拍多一次手！
+            </button>
+          </div>
+        `;
+      } else if (corner.cornerKey === 'tea') {
+        container.innerHTML = `
+          <div class="text-center py-4">
+            <div class="text-7xl mb-3">🍵</div>
+            <h3 class="text-3xl font-black text-sky-800 mb-2">飲啖茶・唞一唞</h3>
+            <p class="text-xl text-gray-700 font-bold max-w-xl mx-auto mb-6">${corner.desc}</p>
+            <div class="inline-block bg-white border-2 border-sky-200 rounded-3xl px-8 py-5 shadow-sm">
+              <div class="text-sm font-bold text-sky-700 mb-1">輕鬆休息計時器</div>
+              <div id="tea-timer-display" class="text-5xl font-black text-sky-900 mb-4">01:00</div>
+              <div class="flex justify-center gap-3">
+                <button id="tea-start-btn" class="bg-sky-600 hover:bg-sky-700 text-white px-6 py-2.5 rounded-xl font-bold text-lg">開始 60 秒休息</button>
+                <button id="tea-reset-btn" class="bg-gray-100 text-gray-800 px-5 py-2.5 rounded-xl font-bold text-lg">重設</button>
+              </div>
+            </div>
+          </div>
+        `;
+        let sec = 60, timer = null;
+        const disp = container.querySelector('#tea-timer-display');
+        const startBtn = container.querySelector('#tea-start-btn');
+        startBtn.onclick = () => {
+          if (timer) { clearInterval(timer); timer = null; startBtn.textContent = '繼續休息'; return; }
+          startBtn.textContent = '暫停';
+          timer = setInterval(() => {
+            sec--;
+            disp.textContent = `00:${String(Math.max(0, sec)).padStart(2, '0')}`;
+            if (sec <= 0) { clearInterval(timer); timer = null; SoundFX.playBell(); showToast('休息完畢，繼續出發！'); startBtn.textContent = '再唞 60 秒'; sec = 60; }
+          }, 1000);
+          state.activeTimers.push(timer);
+        };
+        container.querySelector('#tea-reset-btn').onclick = () => { if (timer) clearInterval(timer); timer = null; sec = 60; disp.textContent = '01:00'; startBtn.textContent = '開始 60 秒休息'; };
+      } else if (corner.cornerKey === 'choose') {
+        container.innerHTML = `
+          <div class="text-center mb-4">
+            <h3 class="text-2xl sm:text-3xl font-black text-purple-800 mb-1">⭐ 自由揀題：揀一格心水題目！</h3>
+            <p class="text-base sm:text-lg text-gray-600 font-bold">${corner.desc}</p>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            ${TASKS.map(t => {
+              const st = STAGES[t.stage];
+              return `
+                <button onclick="openSpaceModal(${t.boardIndex}, '${state.previousViewForModal}')" class="rounded-2xl p-3 text-left border-2 bg-white hover:scale-[1.03] transition flex items-center gap-2" style="border-color:${st.accent}88">
+                  <span class="text-2xl">${t.icon}</span>
+                  <div class="min-w-0">
+                    <div class="text-[11px] font-black" style="color:${st.accent}">${st.name} ${t.num}</div>
+                    <div class="text-sm font-black text-gray-900 truncate">${t.title}</div>
+                  </div>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+    }
+
+    /* =====================================================================
+       10. ALL 40 INTERACTIVE TASK WIDGETS
+       ===================================================================== */
+    function renderTaskWidget(task, container, footerExtra) {
+      const st = STAGES[task.stage];
+      const promptBanner = `
+        <div class="rounded-2xl p-4 sm:p-5 mb-6 text-center bg-white/85 border-2 shadow-sm flex items-center justify-center gap-4" style="border-color:${st.accent}55">
+          ${task.stage === 'infancy' ? `<div class="hidden sm:block shrink-0">${getStageCharSVG('infancy', false)}</div>` : ''}
+          <div class="text-2xl sm:text-3xl font-black text-gray-900 leading-snug">${task.prompt}</div>
+          ${task.stage === 'infancy' ? `<div class="hidden sm:block shrink-0">${getStageCharSVG('infancy', true)}</div>` : ''}
+        </div>
+      `;
+
+      switch (task.widget) {
+        /* ==================== 幼兒期 (1-10) ==================== */
+        case 'infancy_1': {
+          const songs = {
+            moon: { title: '《月光光》', lyrics: '月光光，照地堂，\n蝦仔你乖乖瞓落床。\n聽朝阿媽要捕魚蝦囉，\n阿嫲織網要織到天光。' },
+            spin: { title: '《氹氹轉》', lyrics: '氹氹轉，菊花園，\n炒米餅，糯呀糯米團。\n阿媽叫我睇龍船，\n我唔睇，睇雞仔。\n雞仔大，拎去賣，\n賣得幾多錢？賣得三百錢！' }
+          };
+          container.innerHTML = promptBanner + `
+            <div class="flex justify-center gap-3 mb-5">
+              <button id="song-btn-moon" class="px-6 py-3 rounded-2xl font-black text-xl bg-[#E67324] text-white shadow-md">🌙 月光光</button>
+              <button id="song-btn-spin" class="px-6 py-3 rounded-2xl font-black text-xl bg-white text-orange-900 border-2 border-orange-300">🌼 氹氹轉</button>
+            </div>
+            <div class="bg-white/90 border-2 border-orange-200 rounded-3xl p-6 text-center shadow-sm">
+              <h3 id="song-title" class="text-3xl font-black text-[#E67324] mb-4"></h3>
+              <pre id="song-lyrics" class="font-sans text-2xl sm:text-3xl font-bold text-gray-800 leading-relaxed whitespace-pre-wrap mb-6"></pre>
+              <div class="flex justify-center gap-3">
+                <button id="song-play-btn" class="bg-emerald-600 hover:bg-emerald-700 text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow-md">🎵 播放音樂盒伴奏</button>
+                <button onclick="SoundFX.stopMelody()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-5 py-3.5 rounded-2xl font-bold text-lg">⏹️ 停止</button>
+              </div>
+            </div>
+          `;
+          let activeSong = 'moon';
+          const loadSong = (key) => {
+            activeSong = key; SoundFX.stopMelody();
+            container.querySelector('#song-title').textContent = songs[key].title;
+            container.querySelector('#song-lyrics').textContent = songs[key].lyrics;
+            container.querySelector('#song-btn-moon').className = key === 'moon' ? 'px-6 py-3 rounded-2xl font-black text-xl bg-[#E67324] text-white shadow-md' : 'px-6 py-3 rounded-2xl font-black text-xl bg-white text-orange-900 border-2 border-orange-300';
+            container.querySelector('#song-btn-spin').className = key === 'spin' ? 'px-6 py-3 rounded-2xl font-black text-xl bg-[#E67324] text-white shadow-md' : 'px-6 py-3 rounded-2xl font-black text-xl bg-white text-orange-900 border-2 border-orange-300';
+          };
+          container.querySelector('#song-btn-moon').onclick = () => loadSong('moon');
+          container.querySelector('#song-btn-spin').onclick = () => loadSong('spin');
+          container.querySelector('#song-play-btn').onclick = () => SoundFX.playMelody(activeSong);
+          loadSong('moon');
+          break;
+        }
+
+        case 'infancy_2': {
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-wrap justify-center gap-4 mb-6">
+              <button id="fruit-easy-btn" class="px-6 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xl shadow-md">💡 提示（簡單）</button>
+              <button id="fruit-hard-btn" class="px-6 py-3.5 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-black text-xl shadow-md">🔥 提示（複雜）</button>
+              <button id="fruit-hide-btn" class="px-5 py-3.5 rounded-2xl bg-white border-2 border-gray-300 text-gray-800 font-bold text-lg">🙈 收起提示</button>
+            </div>
+            <div id="fruit-hint-area" class="min-h-[180px] flex items-center justify-center rounded-3xl bg-white/80 border-2 border-dashed border-orange-300 p-6 text-xl font-bold text-gray-600">
+              先俾老友自由講出 2–3 種水果，需要時再按上面開啟「簡單」或「複雜」提示！
+            </div>
+          `;
+          const area = container.querySelector('#fruit-hint-area');
+          container.querySelector('#fruit-easy-btn').onclick = () => {
+            SoundFX.playStep();
+            area.innerHTML = `<div class="grid grid-cols-2 gap-6 w-full max-w-lg text-center">
+              <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-red-200"><div class="text-7xl mb-2">🍎</div><div class="text-3xl font-black text-red-700">蘋果</div></div>
+              <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-orange-200"><div class="text-7xl mb-2">🍊</div><div class="text-3xl font-black text-orange-600">橙</div></div>
+            </div>`;
+          };
+          container.querySelector('#fruit-hard-btn').onclick = () => {
+            SoundFX.playStep();
+            area.innerHTML = `<div class="grid grid-cols-2 gap-6 w-full max-w-lg text-center">
+              <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-emerald-200"><div class="text-7xl mb-2">🥑</div><div class="text-3xl font-black text-emerald-800">牛油果</div></div>
+              <div class="bg-white rounded-3xl p-6 shadow-md border-2 border-rose-200"><div class="text-7xl mb-2">🔴</div><div class="text-3xl font-black text-rose-700">紅毛丹</div></div>
+            </div>`;
+          };
+          container.querySelector('#fruit-hide-btn').onclick = () => { area.innerHTML = '提示已收起，可以自由命名其他水果！'; };
+          break;
+        }
+
+        case 'infancy_3': {
+          let count = 0;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-col items-center">
+              <div class="flex items-center justify-center gap-6 sm:gap-10 mb-5 bg-white/90 rounded-3xl p-6 w-full max-w-xl border-2 border-orange-200 shadow-sm">
+                <div id="tongue-left" class="text-center p-4 rounded-2xl transition-all opacity-40">
+                  <div class="text-5xl">⬅️</div><div class="text-2xl font-black text-orange-800 mt-1">向左伸</div>
+                </div>
+                <div class="text-6xl">👅</div>
+                <div id="tongue-right" class="text-center p-4 rounded-2xl transition-all opacity-40">
+                  <div class="text-5xl">➡️</div><div class="text-2xl font-black text-orange-800 mt-1">向右伸</div>
+                </div>
+              </div>
+              <div class="text-5xl font-black text-[#E67324] mb-5"><span id="tongue-count">0</span> / 10 次（左右各 5 次）</div>
+              <div class="flex flex-wrap justify-center gap-3">
+                <button id="tongue-next" class="bg-[#E67324] hover:bg-[#cf6016] text-white px-8 py-4 rounded-2xl font-black text-2xl shadow-lg">👉 下一下（左 ↔ 右）</button>
+                <button id="tongue-reset" class="bg-white border-2 border-gray-300 text-gray-800 px-5 py-4 rounded-2xl font-bold text-lg">重設</button>
+              </div>
+            </div>
+          `;
+          const updateTongue = () => {
+            container.querySelector('#tongue-count').textContent = count;
+            const l = container.querySelector('#tongue-left'), r = container.querySelector('#tongue-right');
+            if (count === 0) { l.className = r.className = 'text-center p-4 rounded-2xl transition-all opacity-40'; }
+            else if (count % 2 === 1) { l.className = 'text-center p-4 rounded-2xl transition-all bg-orange-200 scale-110 shadow opacity-100'; r.className = 'text-center p-4 rounded-2xl transition-all opacity-35'; }
+            else { r.className = 'text-center p-4 rounded-2xl transition-all bg-orange-200 scale-110 shadow opacity-100'; l.className = 'text-center p-4 rounded-2xl transition-all opacity-35'; }
+          };
+          container.querySelector('#tongue-next').onclick = () => {
+            if (count < 10) {
+              count++; SoundFX.playStep(); updateTongue();
+              speakText(count % 2 === 1 ? `左，第${Math.ceil(count/2)}次` : `右，第${count/2}次`);
+              if (count === 10) { SoundFX.playApplause(); launchConfetti(); showToast('完成左右伸展各 5 次！好叻呀！🎉'); }
+            }
+          };
+          container.querySelector('#tongue-reset').onclick = () => { count = 0; updateTongue(); };
+          break;
+        }
+
+        case 'infancy_4': {
+          let lit = [true, true, true, true, true];
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-col items-center">
+              <div id="candles-row" class="flex items-end justify-center gap-4 sm:gap-7 my-3 py-4"></div>
+              <div id="candle-clap" class="hidden text-4xl sm:text-5xl my-3 animate-bounce font-black text-[#E67324]">👏👏👏👏👏 生日快樂！</div>
+              <div class="flex flex-wrap justify-center gap-3 mt-3">
+                <button id="btn-blow-one" class="bg-[#E67324] hover:bg-[#cf6016] text-white px-7 py-4 rounded-2xl font-black text-xl shadow-lg">💨 吹熄一支蠟燭</button>
+                <button id="btn-mic-blow" class="bg-sky-600 hover:bg-sky-700 text-white px-5 py-4 rounded-2xl font-bold text-lg shadow-md">🎤 開啟收音咪吹氣感應</button>
+                <button id="btn-relight" class="bg-white border-2 border-gray-300 text-gray-800 px-5 py-4 rounded-2xl font-bold text-lg">🔥 重新點燃</button>
+              </div>
+              <p class="text-sm font-bold text-gray-600 mt-3">小貼士：可直接點擊蠟燭，或開啟收音咪對住螢幕吹氣！</p>
+            </div>
+          `;
+          const renderCandles = () => {
+            container.querySelector('#candles-row').innerHTML = lit.map((isLit, i) => `
+              <button onclick="window._blowCandleIdx(${i})" class="flex flex-col items-center focus:outline-none">
+                <div class="h-12 flex items-end justify-center">
+                  ${isLit ? `<div class="candle-flame w-7 h-10 rounded-full bg-gradient-to-t from-orange-500 via-amber-400 to-yellow-200 shadow-[0_0_18px_#F59E0B]"></div>` : `<div class="text-2xl opacity-60">💨</div>`}
+                </div>
+                <div class="w-1.5 h-3 bg-gray-700"></div>
+                <div class="w-10 sm:w-12 h-28 sm:h-32 rounded-t-xl rounded-b-md border-2 border-slate-300 bg-gradient-to-r from-slate-100 via-white to-slate-200 shadow-inner flex items-center justify-center font-black text-slate-400">${i+1}</div>
+              </button>
+            `).join('');
+            container.querySelector('#candle-clap').classList.toggle('hidden', !lit.every(v => !v));
+          };
+          const blowOne = (idx = null) => {
+            const target = idx !== null ? idx : lit.findIndex(v => v);
+            if (target === -1 || !lit[target]) return;
+            lit[target] = false; SoundFX.playStep(); renderCandles();
+            if (lit.every(v => !v)) { SoundFX.playApplause(); launchConfetti(); showToast('吹熄晒 5 支蠟燭啦！拍爛手掌！🎂'); }
+          };
+          window._blowCandleIdx = (i) => blowOne(i);
+          container.querySelector('#btn-blow-one').onclick = () => blowOne();
+          container.querySelector('#btn-relight').onclick = () => { lit = [true,true,true,true,true]; renderCandles(); };
+          container.querySelector('#btn-mic-blow').onclick = async () => {
+            const btn = container.querySelector('#btn-mic-blow');
+            if (!navigator.mediaDevices?.getUserMedia) { showToast('此裝置不支援收音咪，請直接點擊吹熄蠟燭'); return; }
+            try {
+              const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+              state.activeMediaStreams.push(stream);
+              const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+              window._micAudioCtx = audioCtx;
+              const analyser = audioCtx.createAnalyser();
+              audioCtx.createMediaStreamSource(stream).connect(analyser);
+              analyser.fftSize = 256;
+              const data = new Uint8Array(analyser.frequencyBinCount);
+              btn.textContent = '🎤 監聽中…對住吹氣！';
+              btn.className = 'bg-emerald-600 text-white px-5 py-4 rounded-2xl font-bold text-lg shadow-md';
+              let lastBlow = 0;
+              const check = () => {
+                analyser.getByteTimeDomainData(data);
+                let sum = 0;
+                for (let i = 0; i < data.length; i++) { const v = (data[i] - 128) / 128; sum += v * v; }
+                const rms = Math.sqrt(sum / data.length);
+                if (rms > 0.16 && Date.now() - lastBlow > 850) { lastBlow = Date.now(); blowOne(); }
+                window._micRaf = requestAnimationFrame(check);
+              };
+              check();
+            } catch (e) { showToast('未能開啟收音咪，可直接按掣吹熄蠟燭'); }
+          };
+          renderCandles();
+          break;
+        }
+
+        case 'infancy_5': {
+          const emojis = [
+            { icon: '😋', label: '1/4：為食伸脷' },
+            { icon: '😮', label: '2/4：驚喜 O 嘴' },
+            { icon: '😱', label: '3/4：嚇親尖叫' },
+            { icon: '🥰', label: '4/4：甜絲絲微笑' }
+          ];
+          let idx = 0;
+          container.innerHTML = promptBanner + `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div class="flex flex-col items-center bg-white/85 rounded-3xl p-5 border-2 border-orange-200">
+                <div id="big-emoji-display" class="text-[115px] leading-none mb-2">😋</div>
+                <div id="big-emoji-label" class="text-2xl font-black text-orange-900 mb-4">1/4：為食伸脷</div>
+                <div class="flex items-center gap-3">
+                  <button id="em-prev" class="bg-orange-100 hover:bg-orange-200 text-orange-900 px-4 py-2.5 rounded-xl font-black text-lg">⬅️ 上一個</button>
+                  <button id="em-next" class="bg-[#E67324] hover:bg-[#cf6016] text-white px-5 py-2.5 rounded-xl font-black text-lg">下一個 ➡️</button>
+                </div>
+              </div>
+              <div class="flex flex-col items-center justify-center bg-white/80 rounded-3xl p-4 min-h-[240px] border-2 border-dashed border-orange-300">
+                <video id="selfie-mirror" autoplay playsinline muted class="hidden w-full max-h-[230px] rounded-2xl object-cover scale-x-[-1]"></video>
+                <div id="mirror-placeholder" class="text-center">
+                  <div class="text-5xl mb-2">🪞</div>
+                  <p class="text-lg font-bold text-gray-700 mb-3">想睇住自己個樣做表情？</p>
+                  <button id="btn-open-mirror" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-2xl font-black text-lg shadow">📸 開啟自拍鏡</button>
+                </div>
+              </div>
+            </div>
+          `;
+          const upd = () => {
+            container.querySelector('#big-emoji-display').textContent = emojis[idx].icon;
+            container.querySelector('#big-emoji-label').textContent = emojis[idx].label;
+          };
+          container.querySelector('#em-prev').onclick = () => { idx = (idx + 3) % 4; SoundFX.playStep(); upd(); };
+          container.querySelector('#em-next').onclick = () => { idx = (idx + 1) % 4; SoundFX.playStep(); upd(); };
+          container.querySelector('#btn-open-mirror').onclick = async () => {
+            try {
+              const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+              state.activeMediaStreams.push(stream);
+              const vid = container.querySelector('#selfie-mirror');
+              vid.srcObject = stream; vid.classList.remove('hidden');
+              container.querySelector('#mirror-placeholder').classList.add('hidden');
+            } catch (e) { showToast('未能開啟前鏡頭，可以直接面對面模仿表情！'); }
+          };
+          break;
+        }
+
+        case 'infancy_6': {
+          container.innerHTML = promptBanner + `
+            <div class="bg-amber-100 border-2 border-amber-500 rounded-2xl p-4 mb-6 flex items-center justify-center gap-3 text-amber-950 font-black text-lg sm:text-xl shadow-sm">
+              <span class="text-3xl">🧴</span>
+              <span>記得先用酒精搓手液清潔雙手後才摸物件！</span>
+            </div>
+            <div class="flex flex-col items-center bg-white/90 rounded-3xl p-6 border-2 border-orange-200">
+              <div class="text-sm font-bold text-orange-800 mb-1">估物件計時器</div>
+              <div id="bag-timer" class="text-6xl font-black text-gray-900 mb-5">30 秒</div>
+              <div class="flex flex-wrap justify-center gap-3">
+                <button id="bag-start" class="bg-[#E67324] hover:bg-[#cf6016] text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow">⏱️ 開始 30 秒倒數</button>
+                <button onclick="SoundFX.playApplause(); launchConfetti(); showToast('估中咗！好犀利呀！🎉');" class="bg-emerald-600 hover:bg-emerald-700 text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow">🎉 估中歡呼</button>
+              </div>
+            </div>
+          `;
+          let s = 30, intId = null;
+          container.querySelector('#bag-start').onclick = () => {
+            if (intId) clearInterval(intId);
+            s = 30; container.querySelector('#bag-timer').textContent = '30 秒';
+            intId = setInterval(() => {
+              s--; container.querySelector('#bag-timer').textContent = `${s} 秒`;
+              if (s <= 5 && s > 0) SoundFX.playTick();
+              if (s <= 0) { clearInterval(intId); SoundFX.playBell(); showToast('時間到！揭曉袋入面係咩物件啦！'); }
+            }, 1000);
+            state.activeTimers.push(intId);
+          };
+          break;
+        }
+
+        case 'infancy_7': {
+          renderCollapsiblePromptCard(container, promptBanner, '🌠', '打開童年夢想提示', [
+            '🌟 做明星', '✈️ 去外國', '💼 理想工作', '🏡 組織溫馨家庭'
+          ]);
+          break;
+        }
+
+        case 'infancy_8': {
+          renderCollapsiblePromptCard(container, promptBanner, '🏮', '顯示常見節日圖示提示', [
+            '🧧 農曆新年（逗利是、行花市）', '🏮 中秋節（玩燈籠、食月餅）', '🐉 端午節（睇龍舟、食糉）', '🥮 冬至（做冬一家人團圓）'
+          ]);
+          break;
+        }
+
+        case 'infancy_9': {
+          let laughs = 0;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-col items-center py-2">
+              <div id="laugh-emoji" class="text-8xl mb-3 transition-transform">😄</div>
+              <div class="text-5xl sm:text-6xl font-black text-[#E67324] mb-6"><span id="laugh-num">0</span> / 10 次</div>
+              <div class="flex gap-4">
+                <button id="btn-laugh-add" class="bg-[#E67324] hover:bg-[#cf6016] text-white px-10 py-5 rounded-3xl font-black text-2xl sm:text-3xl shadow-xl active:scale-95 transition">😂 哈哈！(+1)</button>
+                <button id="btn-laugh-reset" class="bg-white border-2 border-gray-300 text-gray-800 px-5 py-5 rounded-3xl font-bold text-lg">重設</button>
+              </div>
+            </div>
+          `;
+          container.querySelector('#btn-laugh-add').onclick = () => {
+            if (laughs >= 10) return;
+            laughs++; container.querySelector('#laugh-num').textContent = laughs;
+            const em = container.querySelector('#laugh-emoji');
+            em.textContent = laughs % 2 === 0 ? '🤣' : '😂';
+            em.style.transform = 'scale(1.25)'; setTimeout(() => em.style.transform = 'scale(1)', 180);
+            SoundFX.playTone(480 + laughs * 35, 0.14, 'sine', 0.18);
+            if (laughs === 10) { SoundFX.playApplause(); launchConfetti(); showToast('笑足 10 次！笑一笑世界更美妙！🎉'); }
+          };
+          container.querySelector('#btn-laugh-reset').onclick = () => { laughs = 0; container.querySelector('#laugh-num').textContent = '0'; container.querySelector('#laugh-emoji').textContent = '😄'; };
+          break;
+        }
+
+        case 'infancy_10': {
+          let questions = [
+            { q: '6 + 10 =', a: '16' },
+            { q: '8 - 5 =', a: '3' },
+            { q: '20 - 9 =', a: '11' },
+            { q: '2 + 5 + 3 =', a: '10' },
+            { q: '5 × 4 =', a: '20' }
+          ];
+          let idx = 0, revealed = false;
+          container.innerHTML = promptBanner + `
+            <div class="bg-white/90 border-2 border-orange-200 rounded-3xl p-6 sm:p-10 text-center shadow-sm">
+              <div class="text-lg font-black text-orange-800 mb-3">第 <span id="math-idx">1</span> / 5 題</div>
+              <div class="text-5xl sm:text-7xl md:text-8xl font-black tracking-wide my-6 flex items-center justify-center flex-wrap gap-4">
+                <span id="math-q" class="text-black"></span>
+                <span id="math-a" style="color:#45A02A;" class="min-w-[90px]"></span>
+              </div>
+              <div class="flex flex-wrap justify-center gap-3 mt-6">
+                <button id="math-prev" class="bg-white border-2 border-gray-300 text-gray-800 px-5 py-3 rounded-2xl font-bold text-lg">⬅️ 上一題</button>
+                <button id="math-reveal" class="bg-[#45A02A] hover:bg-emerald-700 text-white px-8 py-3 rounded-2xl font-black text-xl shadow-md">👀 顯示綠色答案</button>
+                <button id="math-next" class="bg-white border-2 border-gray-300 text-gray-800 px-5 py-3 rounded-2xl font-bold text-lg">下一題 ➡️</button>
+                <button id="math-rand" class="bg-amber-500 hover:bg-amber-600 text-white px-5 py-3 rounded-2xl font-bold text-lg shadow">🎲 隨機換一組新題</button>
+              </div>
+            </div>
+          `;
+          const renderMath = () => {
+            container.querySelector('#math-idx').textContent = idx + 1;
+            container.querySelector('#math-q').textContent = questions[idx].q;
+            container.querySelector('#math-a').textContent = revealed ? questions[idx].a : '?';
+          };
+          container.querySelector('#math-reveal').onclick = () => { revealed = true; SoundFX.playChime(); renderMath(); };
+          container.querySelector('#math-prev').onclick = () => { idx = (idx + 4) % 5; revealed = false; renderMath(); };
+          container.querySelector('#math-next').onclick = () => { idx = (idx + 1) % 5; revealed = false; renderMath(); };
+          container.querySelector('#math-rand').onclick = () => {
+            const a1=Math.floor(Math.random()*12)+3, b1=Math.floor(Math.random()*10)+2;
+            const a2=Math.floor(Math.random()*10)+10, b2=Math.floor(Math.random()*8)+1;
+            const a3=Math.floor(Math.random()*12)+12, b3=Math.floor(Math.random()*9)+2;
+            const c1=Math.floor(Math.random()*6)+2, c2=Math.floor(Math.random()*6)+2, c3=Math.floor(Math.random()*5)+1;
+            const m1=Math.floor(Math.random()*6)+2, m2=Math.floor(Math.random()*5)+2;
+            questions = [
+              { q: `${a1} + ${b1} =`, a: String(a1+b1) }, { q: `${a2} - ${b2} =`, a: String(a2-b2) },
+              { q: `${a3} - ${b3} =`, a: String(a3-b3) }, { q: `${c1} + ${c2} + ${c3} =`, a: String(c1+c2+c3) },
+              { q: `${m1} × ${m2} =`, a: String(m1*m2) }
+            ];
+            idx = 0; revealed = false; SoundFX.playDice(); renderMath(); showToast('已隨機生成 5 條新數學題！');
+          };
+          renderMath();
+          break;
+        }
+
+        /* ==================== 青年期 (1-10) ==================== */
+        case 'youth_1': {
+          let pScore = 0, oScore = 0;
+          const opts = [{ id:'rock', icon:'✊', name:'揼' }, { id:'scissors', icon:'✌️', name:'剪' }, { id:'paper', icon:'🖐️', name:'包' }];
+          container.innerHTML = promptBanner + `
+            <div class="grid grid-cols-2 gap-4 mb-5 text-center">
+              <div class="bg-cyan-50 border-2 border-[#00BCC6] rounded-3xl p-5">
+                <div class="text-xl font-black text-cyan-950 mb-1">老友得分</div>
+                <div id="rps-p" class="text-6xl font-black text-[#008C94] mb-3">0</div>
+                <button id="rps-p-add" class="bg-[#00BCC6] text-white px-5 py-2 rounded-xl font-bold">+1 分</button>
+              </div>
+              <div class="bg-orange-50 border-2 border-orange-300 rounded-3xl p-5">
+                <div class="text-xl font-black text-orange-950 mb-1">對手 / 電腦得分</div>
+                <div id="rps-o" class="text-6xl font-black text-[#E66E24] mb-3">0</div>
+                <button id="rps-o-add" class="bg-[#E66E24] text-white px-5 py-2 rounded-xl font-bold">+1 分</button>
+              </div>
+            </div>
+            <div class="bg-white border-2 border-gray-200 rounded-3xl p-5 text-center">
+              <div class="text-lg font-bold text-gray-600 mb-3">或點擊下面同電腦即場出拳：</div>
+              <div class="flex justify-center gap-4 mb-4">
+                ${opts.map(o => `<button onclick="window._playRPS('${o.id}')" class="w-24 h-24 rounded-3xl bg-cyan-50 hover:bg-cyan-100 border-2 border-[#00BCC6] text-5xl flex flex-col items-center justify-center shadow-sm transition active:scale-95"><span>${o.icon}</span><span class="text-sm font-black text-cyan-950 mt-1">${o.name}</span></button>`).join('')}
+              </div>
+              <div id="rps-result" class="text-2xl font-black text-gray-800 min-h-[36px]"></div>
+              <button id="rps-reset" class="mt-2 text-sm font-bold text-gray-500 underline">重設比數</button>
+            </div>
+          `;
+          const upd = () => {
+            container.querySelector('#rps-p').textContent = pScore;
+            container.querySelector('#rps-o').textContent = oScore;
+            if (pScore === 2 || oScore === 2) { SoundFX.playApplause(); launchConfetti(); showToast(pScore === 2 ? '老友勝出三盤兩勝！🎉' : '對手勝出，再接再厲！👏'); }
+          };
+          container.querySelector('#rps-p-add').onclick = () => { if (pScore < 2) { pScore++; SoundFX.playChime(); upd(); } };
+          container.querySelector('#rps-o-add').onclick = () => { if (oScore < 2) { oScore++; SoundFX.playStep(); upd(); } };
+          container.querySelector('#rps-reset').onclick = () => { pScore = 0; oScore = 0; container.querySelector('#rps-result').textContent = ''; upd(); };
+          window._playRPS = (pick) => {
+            const comp = opts[Math.floor(Math.random()*3)], mine = opts.find(x => x.id === pick);
+            let msg = `老友出 ${mine.icon} vs 電腦出 ${comp.icon} — `;
+            if (pick === comp.id) { msg += '打和！再嚟！'; SoundFX.playStep(); }
+            else if ((pick==='rock'&&comp.id==='scissors')||(pick==='scissors'&&comp.id==='paper')||(pick==='paper'&&comp.id==='rock')) { msg += '老友贏咗一局！🎉'; pScore++; SoundFX.playChime(); upd(); }
+            else { msg += '電腦贏咗一局！'; oScore++; SoundFX.playStep(); upd(); }
+            container.querySelector('#rps-result').textContent = msg;
+          };
+          break;
+        }
+
+        case 'youth_2': {
+          const levels = { basic: ['左手拋、右手接', '右手拋、左手接', '雙手拋、雙手接'], pro: ['單手拋、雙手接', '單手拋、反手接'] };
+          container.innerHTML = promptBanner + `
+            <div class="flex justify-center gap-3 mb-5">
+              <button id="bean-basic-btn" class="px-6 py-3 rounded-2xl font-black text-xl bg-[#00BCC6] text-white shadow">🟦 基礎任務</button>
+              <button id="bean-pro-btn" class="px-6 py-3 rounded-2xl font-black text-xl bg-orange-100 text-orange-900">🔥 升級任務！</button>
+            </div>
+            <div id="bean-list" class="space-y-3 max-w-lg mx-auto"></div>
+          `;
+          const renderBean = (lvl) => {
+            container.querySelector('#bean-basic-btn').className = lvl === 'basic' ? 'px-6 py-3 rounded-2xl font-black text-xl bg-[#00BCC6] text-white shadow' : 'px-6 py-3 rounded-2xl font-black text-xl bg-cyan-100 text-cyan-900';
+            container.querySelector('#bean-pro-btn').className = lvl === 'pro' ? 'px-6 py-3 rounded-2xl font-black text-xl bg-[#E66E24] text-white shadow' : 'px-6 py-3 rounded-2xl font-black text-xl bg-orange-100 text-orange-900';
+            container.querySelector('#bean-list').innerHTML = levels[lvl].map(item => `
+              <label class="flex items-center gap-4 bg-white border-2 border-cyan-200 rounded-2xl p-4 cursor-pointer hover:bg-cyan-50 transition">
+                <input type="checkbox" onchange="SoundFX.playChime()" class="w-7 h-7 accent-[#00BCC6]" />
+                <span class="text-2xl font-black text-gray-800">${item}</span>
+              </label>
+            `).join('');
+          };
+          container.querySelector('#bean-basic-btn').onclick = () => renderBean('basic');
+          container.querySelector('#bean-pro-btn').onclick = () => renderBean('pro');
+          renderBean('basic');
+          break;
+        }
+
+        case 'youth_3': {
+          const qs = ['1️⃣ 你第一份工作是什麼？', '2️⃣ 當時幾多歲呢？', '3️⃣ 為什麼選擇這份工作？'];
+          let shown = 1;
+          container.innerHTML = promptBanner + `<div id="job-qs" class="space-y-4 max-w-2xl mx-auto mb-6"></div><div class="text-center"><button id="job-more" class="bg-[#00BCC6] text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow-md">💬 顯示下一條引導問題</button></div>`;
+          const draw = () => {
+            container.querySelector('#job-qs').innerHTML = qs.slice(0, shown).map(q => `<div class="bg-cyan-50 border-2 border-cyan-200 rounded-2xl p-5 text-2xl sm:text-3xl font-black text-cyan-950 text-center">${q}</div>`).join('');
+            if (shown >= qs.length) container.querySelector('#job-more').classList.add('hidden');
+          };
+          container.querySelector('#job-more').onclick = () => { shown++; SoundFX.playStep(); draw(); };
+          draw();
+          break;
+        }
+
+        case 'youth_4': {
+          const ideas = ['💃 跳茶舞', '🀄 打麻雀', '⛰️ 行山', '🎬 睇戲', '🚲 踩單車', '🏊 游水'];
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-col items-center">
+              <div class="flex items-center gap-4 bg-amber-50 border-2 border-amber-300 rounded-3xl px-6 py-4 mb-6">
+                <span class="text-6xl">🤫</span>
+                <div class="text-left"><div class="text-xl font-black text-amber-900">提提你：用動作表演，不能說話啊！</div><div class="text-base font-bold text-amber-800/80">由其他老友估下做緊咩活動</div></div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
+                <div class="bg-cyan-50 border-2 border-cyan-200 rounded-3xl p-5 text-center">
+                  <div class="text-sm font-bold text-cyan-800 mb-1">倒數計時</div>
+                  <div id="charade-timer" class="text-5xl font-black text-gray-900 mb-4">60 秒</div>
+                  <button id="charade-start" class="bg-[#00BCC6] text-white px-6 py-3 rounded-2xl font-black text-lg">⏱️ 開始 60 秒</button>
+                </div>
+                <div class="bg-purple-50 border-2 border-purple-200 rounded-3xl p-5 text-center flex flex-col justify-between">
+                  <div class="text-sm font-bold text-purple-800">抽個活動靈感：</div>
+                  <div id="charade-idea" class="text-3xl font-black text-purple-900 my-3">？</div>
+                  <button id="charade-draw" class="bg-purple-600 text-white px-6 py-3 rounded-2xl font-black text-lg">🎲 隨機抽靈感</button>
+                </div>
+              </div>
+            </div>
+          `;
+          let s = 60, tid = null;
+          container.querySelector('#charade-start').onclick = () => {
+            if (tid) clearInterval(tid);
+            s = 60; container.querySelector('#charade-timer').textContent = '60 秒';
+            tid = setInterval(() => { s--; container.querySelector('#charade-timer').textContent = `${s} 秒`; if (s <= 0) { clearInterval(tid); SoundFX.playBell(); showToast('時間到！'); } }, 1000);
+            state.activeTimers.push(tid);
+          };
+          container.querySelector('#charade-draw').onclick = () => { SoundFX.playDice(); container.querySelector('#charade-idea').textContent = ideas[Math.floor(Math.random()*ideas.length)]; };
+          break;
+        }
+
+        case 'youth_5': {
+          const stars = [
+            { name: '薛家燕', emoji: '👩‍🎤', c1: '剪影線索：童星出身，笑容極之燦爛，「七公主」成員之一。', c2: '特徵提示：額頭正中有一粒招牌美人痣，《皆大歡喜》深入民心！', bio: '經典代表作：《真情》好姨、《皆大歡喜》、十字步！' },
+            { name: '林子祥', emoji: '🧔‍♂️', c1: '剪影線索：香港殿堂級實力男歌手，以驚人高音同鐵肺唱功聞名。', c2: '特徵提示：留有標誌性嘅「二撇雞」鬍鬚，太太係葉蒨文。', bio: '經典金曲：《分分鐘需要你》、《男兒當自強》、《十分十二吋》！' },
+            { name: '鄧麗君', emoji: '🌸', c1: '剪影線索：歌聲甜美溫柔，紅遍兩岸三地同日本嘅一代歌后。', c2: '特徵提示：甜美笑容配雙手托面經典唱片封面造型。', bio: '經典金曲：《月亮代表我的心》、《甜蜜蜜》、《漫步人生路》！' },
+            { name: '羅文', emoji: '👑', c1: '剪影線索：人稱「樂壇教父」，舞台造型華麗奪目，唱腔字正腔圓。', c2: '特徵提示：招牌毛毛大衣華麗造型，唱過無數武俠劇主題曲。', bio: '經典金曲：《獅子山下》、《小李飛刀》、《幾許風雨》！' },
+            { name: '朱咪咪', emoji: '🎤', c1: '剪影線索：後生時長髮大眼，由新加坡來港發展嘅酒廊及喜劇紅星。', c2: '特徵提示：招牌甜美酒窩與響亮歌聲，經常喺喜劇電影飾演搞笑母親！', bio: '經典形象：紅館演唱會常客、《唐伯虎點秋香》朱茜！' },
+            { name: '沈殿霞（肥姐）', emoji: '🕶️', c1: '剪影線索：香港人嘅「開心果」，標誌性開朗大笑聲無人唔識。', c2: '特徵提示：招牌黑框貓眼眼鏡與捲曲冬菇頭，《歡樂今宵》靈魂人物！', bio: '經典代表作：《歡樂今宵》、《富貴逼人》系列！' }
+          ];
+          let cur = 0, step = 1;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-wrap justify-center gap-2 mb-5">
+              ${stars.map((_, i) => `<button onclick="window._pickStar(${i})" class="star-tab px-4 py-2 rounded-xl font-black text-base border-2">明星 ${i+1}</button>`).join('')}
+            </div>
+            <div id="star-card" class="bg-cyan-50/70 border-2 border-cyan-200 rounded-3xl p-6 text-center max-w-2xl mx-auto"></div>
+          `;
+          const renderStar = () => {
+            const stObj = stars[cur];
+            container.querySelectorAll('.star-tab').forEach((b, i) => {
+              b.className = i === cur ? 'star-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-[#00BCC6] text-white border-[#00BCC6]' : 'star-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-white text-cyan-900 border-cyan-200';
+            });
+            const card = container.querySelector('#star-card');
+            card.innerHTML = `
+              <div class="text-6xl mb-3">${step === 3 ? stObj.emoji : '🕵️'}</div>
+              <div class="space-y-3 text-left mb-6">
+                <div class="bg-white rounded-2xl p-4 text-xl font-bold text-gray-800 border border-cyan-200">🔍 ${stObj.c1}</div>
+                ${step >= 2 ? `<div class="bg-amber-50 rounded-2xl p-4 text-xl font-bold text-amber-950 border border-amber-300">💡 ${stObj.c2}</div>` : ''}
+                ${step >= 3 ? `<div class="bg-emerald-50 rounded-2xl p-5 text-center border-2 border-emerald-400"><div class="text-4xl font-black text-emerald-800 mb-1">答案：${stObj.name}</div><div class="text-lg font-bold text-emerald-900/80">${stObj.bio}</div></div>` : ''}
+              </div>
+              <div class="flex justify-center gap-3">
+                ${step < 3 ? `<button id="star-next-step" class="bg-[#00BCC6] text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow-md">${step === 1 ? '💡 開啟特徵線索' : '🎉 揭曉明星答案'}</button>` : `<button onclick="window._pickStar((${cur}+1)%6)" class="bg-emerald-600 text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow-md">➡️ 下一位明星</button>`}
+              </div>
+            `;
+            const nb = card.querySelector('#star-next-step');
+            if (nb) nb.onclick = () => { step++; step === 3 ? (SoundFX.playApplause(), launchConfetti()) : SoundFX.playStep(); renderStar(); };
+          };
+          window._pickStar = (i) => { cur = i; step = 1; SoundFX.playStep(); renderStar(); };
+          renderStar();
+          break;
+        }
+
+        case 'youth_6': {
+          const songs = [
+            { title: '舊夢不須記', singer: '雷安娜', key: 'old1', hint: '1981 年黃霑詞曲：「舊夢不須記，逝去種種昨日經已死…」', yt: 'https://www.youtube.com/results?search_query=%E8%88%8A%E5%A4%A2%E4%B8%8D%E9%A0%88%E8%A8%98+%E9%9B%B7%E5%AE%89%E5%A8%9C' },
+            { title: '世間始終你好', singer: '羅文、甄妮', key: 'old2', hint: '83 版《射鵰英雄傳》主題曲：「問世間，是否此山最高…」', yt: 'https://www.youtube.com/watch?v=-K3uwRtE4PY' },
+            { title: '紫釵恨', singer: '鄭少秋、汪明荃', key: 'old3', hint: '經典男女合唱金曲：「紫釵偏生怨恨，相思最苦…」', yt: 'https://www.youtube.com/watch?v=s8zBVtKPiU0' },
+            { title: '舊歡如夢', singer: '譚炳文', key: 'old4', hint: '1966 年粵語經典：「當年相戀意中人，大家性情近…」', yt: 'https://www.youtube.com/watch?v=XQBjCgv6HJw' }
+          ];
+          let cur = 0, revealed = false;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-wrap justify-center gap-2 mb-5">
+              ${songs.map((_, i) => `<button onclick="window._pickOldSong(${i})" class="oldsong-tab px-4 py-2 rounded-xl font-black text-base border-2">金曲 ${i+1}</button>`).join('')}
+            </div>
+            <div id="vinyl-stage" class="bg-slate-900 text-white rounded-3xl p-6 text-center max-w-2xl mx-auto shadow-xl"></div>
+          `;
+          const renderSong = () => {
+            const s = songs[cur];
+            container.querySelectorAll('.oldsong-tab').forEach((b, i) => {
+              b.className = i === cur ? 'oldsong-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-[#00BCC6] text-white border-[#00BCC6]' : 'oldsong-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-white text-cyan-900 border-cyan-200';
+            });
+            const stage = container.querySelector('#vinyl-stage');
+            stage.innerHTML = `
+              <div class="flex flex-col items-center">
+                <div class="w-36 h-36 rounded-full bg-gradient-to-tr from-zinc-900 via-zinc-700 to-zinc-900 border-4 border-amber-400 flex items-center justify-center shadow-2xl mb-4 ${revealed ? '' : 'vinyl-spinning'}">
+                  <div class="w-16 h-16 rounded-full bg-emerald-500 border-4 border-white flex items-center justify-center text-3xl font-black text-white">${revealed ? '🎵' : '?'}</div>
+                </div>
+                <div class="bg-white/10 rounded-2xl p-4 text-lg text-amber-200 font-bold mb-4 max-w-lg">💡 歌詞提示：${s.hint}</div>
+                ${revealed ? `<div class="bg-emerald-500/20 border-2 border-emerald-400 rounded-2xl px-6 py-3 mb-4 w-full max-w-md"><div class="text-3xl font-black text-white">《${s.title}》</div><div class="text-xl font-bold text-emerald-300 mt-1">原唱：${s.singer}</div></div>` : ''}
+                <div class="flex flex-wrap justify-center gap-3">
+                  <button onclick="SoundFX.playMelody('${s.key}')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 rounded-2xl font-black text-lg">🎵 播旋律提示</button>
+                  <a href="${s.yt}" target="_blank" rel="noopener" class="bg-rose-600 hover:bg-rose-700 text-white px-5 py-3 rounded-2xl font-black text-lg">▶️ YouTube 原片</a>
+                  ${!revealed ? `<button id="reveal-song-btn" class="bg-amber-400 hover:bg-amber-500 text-gray-950 px-6 py-3 rounded-2xl font-black text-lg">👀 揭曉答案</button>` : ''}
+                </div>
+              </div>
+            `;
+            const rev = stage.querySelector('#reveal-song-btn');
+            if (rev) rev.onclick = () => { revealed = true; SoundFX.playApplause(); launchConfetti(); renderSong(); };
+          };
+          window._pickOldSong = (i) => { cur = i; revealed = false; SoundFX.stopMelody(); renderSong(); };
+          renderSong();
+          break;
+        }
+
+        case 'youth_7': {
+          const items = [
+            { type: 'scenario', icon: '🚌', title: '搭車發現冇帶錢，點做好呢？', hints: ['向司機禮貌解釋並詢問可否落車', '聯絡屋企人或朋友幫手', '檢查袋入面有冇八達通或零錢'] },
+            { type: 'scenario', icon: '🔑', title: '出街無帶鑰匙，你會點做？', hints: ['打電話俾有後備鎖匙嘅家人', '問大廈管理處／保安幫忙聯絡', '去附近茶餐廳坐低等家人返嚟'] },
+            { type: 'scenario', icon: '☔', title: '落雨無帶傘，會點做？', hints: ['先喺商場或有蓋地方避雨', '去附近便利店買把縮骨遮', '打電話請屋企人拎遮接自己'] },
+            { type: 'math', icon: '🍪', title: '阿華去士多買一包 $18 餅乾，俾 $30 店主，找回幾多錢？', answer: '$12' },
+            { type: 'math', icon: '🍊', title: '超市大減價！橙汁 $7 每支減 $1，阿美想買 5 支，要俾幾多錢？', answer: '$30' }
+          ];
+          let cur = 0, showHelp = false;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-wrap justify-center gap-2 mb-5">${items.map((_, i) => `<button onclick="window._pickLife(${i})" class="life-tab px-4 py-2 rounded-xl font-black text-base border-2">題目 ${i+1}</button>`).join('')}</div>
+            <div id="life-card" class="bg-cyan-50/70 border-2 border-cyan-200 rounded-3xl p-6 text-center max-w-2xl mx-auto"></div>
+          `;
+          const renderLife = () => {
+            const it = items[cur];
+            container.querySelectorAll('.life-tab').forEach((b, i) => {
+              b.className = i === cur ? 'life-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-[#00BCC6] text-white border-[#00BCC6]' : 'life-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-white text-cyan-900 border-cyan-200';
+            });
+            const card = container.querySelector('#life-card');
+            card.innerHTML = `
+              <div class="text-6xl mb-3">${it.icon}</div>
+              <div class="text-2xl sm:text-3xl font-black text-gray-900 mb-5 leading-snug">${it.title}</div>
+              ${showHelp ? (it.type === 'math'
+                ? `<div class="bg-emerald-100 border-2 border-emerald-400 rounded-2xl p-5 text-5xl font-black text-emerald-800 mb-4">答案：${it.answer}</div>`
+                : `<div class="bg-white rounded-2xl p-4 text-left space-y-2 border border-cyan-200 mb-4">${it.hints.map(h => `<div class="text-xl font-bold text-cyan-950">💡 ${h}</div>`).join('')}</div>`) : ''}
+              <button id="life-help-btn" class="bg-[#00BCC6] text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow">${showHelp ? '🙈 收起' : (it.type === 'math' ? '👀 顯示答案' : '💡 開啟應變錦囊')}</button>
+            `;
+            card.querySelector('#life-help-btn').onclick = () => { showHelp = !showHelp; if (showHelp) SoundFX.playChime(); renderLife(); };
+          };
+          window._pickLife = (i) => { cur = i; showHelp = false; SoundFX.playStep(); renderLife(); };
+          renderLife();
+          break;
+        }
+
+        case 'youth_8': {
+          const actions = ['舉高雙手', '拍拍手掌', '摸下個鼻', '眨下對眼', '豎起手指公', '雙手放膊頭', '笑一個', '點點頭'];
+          container.innerHTML = promptBanner + `
+            <div class="bg-white border-2 border-cyan-200 rounded-3xl p-6 sm:p-8 text-center max-w-2xl mx-auto">
+              <div id="simon-badge" class="inline-block px-5 py-2 rounded-full text-xl font-black bg-gray-100 text-gray-600 mb-4">準備抽指令</div>
+              <div id="simon-cmd" class="text-4xl sm:text-5xl font-black text-gray-900 my-6 min-h-[64px]">按下面抽出指令！</div>
+              <button id="simon-draw" class="bg-[#00BCC6] text-white px-9 py-4 rounded-2xl font-black text-2xl shadow-lg">🎲 抽下一個指令</button>
+            </div>
+          `;
+          container.querySelector('#simon-draw').onclick = () => {
+            const hasPrefix = Math.random() < 0.65;
+            const act = actions[Math.floor(Math.random()*actions.length)];
+            const badge = container.querySelector('#simon-badge'), cmd = container.querySelector('#simon-cmd');
+            SoundFX.playStep();
+            if (hasPrefix) {
+              badge.className = 'inline-block px-5 py-2 rounded-full text-xl font-black bg-emerald-100 text-emerald-800 mb-4';
+              badge.textContent = '✅ 有「老師話」— 跟住做！';
+              cmd.textContent = `「老師話：${act}！」`;
+            } else {
+              badge.className = 'inline-block px-5 py-2 rounded-full text-xl font-black bg-rose-100 text-rose-800 mb-4';
+              badge.textContent = '⚠️ 陷阱！冇「老師話」— 唔好郁！';
+              cmd.textContent = `「${act}！」`;
+            }
+          };
+          break;
+        }
+
+        case 'youth_9': {
+          const starters = [['微笑','笑容','容貌'], ['天空','空心','心情']];
+          let chain = [...starters[0]];
+          container.innerHTML = promptBanner + `
+            <div class="flex justify-center gap-3 mb-5">
+              <button id="chain-s1" class="px-5 py-2.5 rounded-xl font-black bg-[#00BCC6] text-white">範例一：微笑</button>
+              <button id="chain-s2" class="px-5 py-2.5 rounded-xl font-black bg-cyan-100 text-cyan-900">範例二：天空</button>
+            </div>
+            <div id="chain-display" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 bg-cyan-50 border-2 border-cyan-200 rounded-3xl p-5 mb-5 min-h-[96px]"></div>
+            <div class="flex flex-wrap justify-center gap-3 max-w-lg mx-auto">
+              <input id="chain-input" type="text" placeholder="輸入老友講嘅新詞語…" class="flex-1 min-w-[200px] px-5 py-3.5 rounded-2xl border-2 border-cyan-300 text-xl font-bold" />
+              <button id="chain-add" class="bg-[#00BCC6] text-white px-6 py-3.5 rounded-2xl font-black text-xl shadow">➕ 接龍</button>
+            </div>
+          `;
+          const renderChain = () => {
+            container.querySelector('#chain-display').innerHTML = chain.map(w => `<span class="px-4 py-2 rounded-2xl bg-white border-2 border-cyan-300 text-2xl font-black text-cyan-950">${w}</span><span class="text-2xl font-black text-cyan-600">➡️</span>`).join('') + `<span class="px-4 py-2 rounded-2xl bg-amber-100 border-2 border-dashed border-amber-400 text-2xl font-black text-amber-800">？</span>`;
+          };
+          const addWord = () => { const inp = container.querySelector('#chain-input'); const v = inp.value.trim(); if (!v) return; chain.push(v); inp.value = ''; SoundFX.playChime(); renderChain(); };
+          container.querySelector('#chain-add').onclick = addWord;
+          container.querySelector('#chain-input').onkeydown = (e) => { if (e.key === 'Enter') addWord(); };
+          container.querySelector('#chain-s1').onclick = () => { chain = [...starters[0]]; renderChain(); };
+          container.querySelector('#chain-s2').onclick = () => { chain = [...starters[1]]; renderChain(); };
+          renderChain();
+          break;
+        }
+
+        case 'youth_10': {
+          let reps = 0;
+          container.innerHTML = promptBanner + `
+            <div id="photo-stage" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center bg-cyan-50/70 border-2 border-cyan-200 rounded-3xl p-6">
+              <div class="text-center">
+                <div class="text-[100px] leading-none mb-2">😁</div>
+                <div class="text-xl font-black text-cyan-950 mb-2">嘴唇向橫拉開，一齊講「茄子～」</div>
+                <div class="text-5xl font-black text-[#E66E24] mb-4"><span id="photo-reps">0</span> / 5 次</div>
+                <div class="flex justify-center gap-3">
+                  <button id="photo-snap" class="bg-[#00BCC6] text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow-lg">📸 咔嚓！(+1)</button>
+                  <button id="photo-reset" class="bg-white border border-gray-300 text-gray-800 px-4 py-3.5 rounded-2xl font-bold">重設</button>
+                </div>
+              </div>
+              <div class="flex flex-col items-center justify-center bg-white rounded-3xl p-4 min-h-[210px] border-2 border-dashed border-cyan-300">
+                <video id="photo-mirror" autoplay playsinline muted class="hidden w-full max-h-[210px] rounded-2xl object-cover scale-x-[-1]"></video>
+                <div id="photo-mirror-ph" class="text-center">
+                  <div class="text-4xl mb-2">🪞</div>
+                  <button id="btn-photo-mirror" class="bg-orange-500 text-white px-5 py-2.5 rounded-xl font-black text-base shadow">📸 開啟自拍鏡對照</button>
+                </div>
+              </div>
+            </div>
+          `;
+          container.querySelector('#photo-snap').onclick = () => {
+            if (reps >= 5) return;
+            reps++; SoundFX.playShutter(); container.querySelector('#photo-reps').textContent = reps;
+            const stg = container.querySelector('#photo-stage'); stg.classList.remove('flash-overlay'); void stg.offsetWidth; stg.classList.add('flash-overlay');
+            if (reps === 5) { SoundFX.playApplause(); launchConfetti(); showToast('影咗 5 張最靚嘅相！笑容滿分！📸'); }
+          };
+          container.querySelector('#photo-reset').onclick = () => { reps = 0; container.querySelector('#photo-reps').textContent = '0'; };
+          container.querySelector('#btn-photo-mirror').onclick = async () => {
+            try {
+              const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+              state.activeMediaStreams.push(stream);
+              const v = container.querySelector('#photo-mirror'); v.srcObject = stream; v.classList.remove('hidden');
+              container.querySelector('#photo-mirror-ph').classList.add('hidden');
+            } catch (e) { showToast('未能開啟前鏡頭，可以直接面對面練習！'); }
+          };
+          break;
+        }
+
+        /* ==================== 成年期 (1-10) ==================== */
+        case 'adult_1': {
+          const ballColors = ['#EF4444','#EF4444','#3B82F6','#3B82F6','#10B981','#10B981','#EF4444','#3B82F6','#10B981','#EF4444'];
+          let hist = [];
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-col items-center">
+              <div id="lotto-ball" class="w-36 h-36 sm:w-44 sm:h-44 rounded-full bg-[#4A7C59] border-8 border-white shadow-2xl flex items-center justify-center mb-6">
+                <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white flex items-center justify-center text-6xl font-black text-gray-900">?</div>
+              </div>
+              <button id="lotto-draw" class="bg-[#4A7C59] hover:bg-[#365f42] text-white px-9 py-4 rounded-2xl font-black text-2xl shadow-lg mb-5">🎱 攪珠開彩 (1–10)</button>
+              <div class="text-base font-bold text-gray-600 mb-2">已抽出號碼紀錄：</div>
+              <div id="lotto-hist" class="flex flex-wrap justify-center gap-2 min-h-[40px]"></div>
+            </div>
+          `;
+          container.querySelector('#lotto-draw').onclick = () => {
+            SoundFX.playDice();
+            const ball = container.querySelector('#lotto-ball');
+            let ticks = 0;
+            const intId = setInterval(() => {
+              const r = Math.floor(Math.random()*10)+1;
+              ball.style.backgroundColor = ballColors[r-1]; ball.firstElementChild.textContent = r;
+              if (++ticks >= 12) {
+                clearInterval(intId);
+                const finalNum = Math.floor(Math.random()*10)+1;
+                ball.style.backgroundColor = ballColors[finalNum-1]; ball.firstElementChild.textContent = finalNum;
+                hist.unshift(finalNum); SoundFX.playApplause(); launchConfetti();
+                container.querySelector('#lotto-hist').innerHTML = hist.slice(0,10).map(n => `<span class="w-10 h-10 rounded-full text-white font-black flex items-center justify-center shadow" style="background:${ballColors[n-1]}">${n}</span>`).join('');
+                showToast(`今期幸運號碼係：${finalNum} 號！邊位老友中獎？🎉`);
+              }
+            }, 70);
+            state.activeTimers.push(intId);
+          };
+          break;
+        }
+
+        case 'adult_2': { renderHighLowCardGame(container, promptBanner, false); break; }
+
+        case 'adult_3': {
+          const places = [
+            { name: '新光戲院', emoji: '🎭', oldClue: '昔日線索：北角英皇道著名粵劇殿堂，掛滿紅底黃字大戲橫額。', modernClue: '現代提示：好多老友專登搭電車去睇粵劇賀歲演出，招牌寫住「新光」。', desc: '承載無數港人睇大戲同賀歲片嘅集體回憶！' },
+            { name: '荔園遊樂場', emoji: '🎡', oldClue: '昔日線索：位於荔枝角，有城堡大門、旋轉木馬、恐龍屋同大象「天奴」。', modernClue: '現代提示：1997 年結業，係香港人細個必去嘅大型遊樂場！', desc: '擲階磚贏香口膠、睇大象天奴，係幾代人最開心嘅回憶！' },
+            { name: '海洋公園', emoji: '🐬', oldClue: '昔日線索：1977 年開幕，山腰有超大海馬標誌同超長登山電梯。', modernClue: '現代提示：位於香港仔南朗山，可以睇海豚表演、大熊貓同搭吊車！', desc: '搭登山纜車睇海景，係香港人最經典嘅家庭郊遊好去處！' },
+            { name: '銅鑼灣鵝頸橋', emoji: '🌉', oldClue: '昔日線索：昔日係電車駛過堅拿道明渠嘅石橋，後來起咗行車天橋。', modernClue: '現代提示：每年驚蟄橋底特別熱鬧，好多婆婆喺橋底擺檔「打小人」！', desc: '香港獨有嘅非物質文化遺產風景！' },
+            { name: '山頂纜車', emoji: '🚋', oldClue: '昔日線索：1888 年通車，早期係木製車廂，由中環拉上太平山。', modernClue: '現代提示：換咗墨綠色新車廂，坐車時望出面啲大廈好似斜晒！', desc: '亞洲第一條纜索鐵路，上山頂睇維港夜景必搭！' }
+          ];
+          let cur = 0, step = 1;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-wrap justify-center gap-2 mb-5">${places.map((_, i) => `<button onclick="window._pickPlace(${i})" class="place-tab px-4 py-2 rounded-xl font-black text-base border-2">地標 ${i+1}</button>`).join('')}</div>
+            <div id="place-card" class="bg-white/90 border-2 border-emerald-300 rounded-3xl p-6 text-center max-w-2xl mx-auto"></div>
+          `;
+          const renderPlace = () => {
+            const p = places[cur];
+            container.querySelectorAll('.place-tab').forEach((b, i) => {
+              b.className = i === cur ? 'place-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-[#4A7C59] text-white border-[#4A7C59]' : 'place-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-white text-emerald-900 border-emerald-200';
+            });
+            const card = container.querySelector('#place-card');
+            card.innerHTML = `
+              <div class="text-6xl mb-3">${step === 3 ? p.emoji : '🗺️'}</div>
+              <div class="space-y-3 text-left mb-6">
+                <div class="bg-emerald-50 rounded-2xl p-4 text-xl font-bold text-gray-800 border border-emerald-200">📜 ${p.oldClue}</div>
+                ${step >= 2 ? `<div class="bg-amber-50 rounded-2xl p-4 text-xl font-bold text-amber-950 border border-amber-300">💡 ${p.modernClue}</div>` : ''}
+                ${step >= 3 ? `<div class="bg-emerald-100 rounded-2xl p-5 text-center border-2 border-emerald-500"><div class="text-4xl font-black text-emerald-900 mb-1">答案：${p.name}</div><div class="text-lg font-bold text-emerald-900/80">${p.desc}</div></div>` : ''}
+              </div>
+              <div class="flex justify-center gap-3">
+                ${step < 3 ? `<button id="place-next" class="bg-[#4A7C59] text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow">${step === 1 ? '💡 開啟現代提示' : '🎉 揭曉地名'}</button>` : `<button onclick="window._pickPlace((${cur}+1)%5)" class="bg-emerald-600 text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow">➡️ 下一個地方</button>`}
+              </div>
+            `;
+            const nb = card.querySelector('#place-next');
+            if (nb) nb.onclick = () => { step++; step === 3 ? (SoundFX.playApplause(), launchConfetti()) : SoundFX.playStep(); renderPlace(); };
+          };
+          window._pickPlace = (i) => { cur = i; step = 1; SoundFX.playStep(); renderPlace(); };
+          renderPlace();
+          break;
+        }
+
+        case 'adult_4': {
+          let steps = 0;
+          container.innerHTML = promptBanner + `
+            <div class="bg-white/90 border-2 border-emerald-300 rounded-3xl p-6 text-center">
+              <div class="relative h-28 bg-emerald-50 rounded-2xl border-2 border-emerald-200 overflow-hidden mb-5 flex items-center px-4">
+                <div id="bus-runner" class="text-5xl transition-all duration-200 absolute" style="left: 4%">🏃‍♂️</div>
+                <div class="absolute right-4 flex items-center gap-1.5 bg-amber-100 border-2 border-red-600 rounded-xl px-3 py-1.5 shadow">
+                  <span class="text-4xl">🚌</span>
+                  <div class="text-left leading-tight"><div class="text-xs font-black text-red-700">11D 樂富</div><div class="text-[10px] font-bold text-gray-700">經典熱狗巴</div></div>
+                </div>
+              </div>
+              <div class="text-5xl font-black text-[#4A7C59] mb-4"><span id="bus-steps">0</span> / 20 下</div>
+              <div class="flex justify-center gap-3 mb-3">
+                <button id="bus-step-btn" class="bg-[#4A7C59] hover:bg-[#365f42] text-white px-9 py-4 rounded-2xl font-black text-2xl shadow-lg active:scale-95 transition">👟 踏一步 (+1)</button>
+                <button id="bus-reset-btn" class="bg-gray-200 text-gray-800 px-5 py-4 rounded-2xl font-bold text-lg">重設</button>
+              </div>
+              <p class="text-sm font-bold text-emerald-900/75">安全提示：老友可安坐於穩固椅子上輪流原地提腿踏步！</p>
+            </div>
+          `;
+          const upd = () => { container.querySelector('#bus-steps').textContent = steps; container.querySelector('#bus-runner').style.left = (4 + (steps/20)*66) + '%'; };
+          container.querySelector('#bus-step-btn').onclick = () => {
+            if (steps >= 20) return;
+            steps++; SoundFX.playStep(); upd();
+            if (steps === 20) { SoundFX.playHorn(); launchConfetti(); showToast('成功追到 11D 巴士上車啦！嘟嘟！🚌'); }
+          };
+          container.querySelector('#bus-reset-btn').onclick = () => { steps = 0; upd(); };
+          break;
+        }
+
+        case 'adult_5': {
+          const tabs = [
+            { title: '西式婚禮', icon: '👰', desc: '白色婚紗配西裝禮服、影樓大合照、教堂行禮或婚姻註冊處簽紙。' },
+            { title: '中式裙褂敬茶', icon: '🏮', desc: '穿龍鳳褂、大紅花車、向長輩斟茶並收龍鳳鈪同利是，晚上酒樓擺喜酒！' },
+            { title: '玩兄弟環節', icon: '😂', desc: '現代新郎接新娘要過五關斬六將：食酸甜苦辣、絲襪套頭、做掌上壓！' },
+            { title: '開門利是', icon: '🧧', desc: '姊妹團把關叫價，講意頭數字（例如 $9999 長長久久）先肯開門！' }
+          ];
+          let cur = 0;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-wrap justify-center gap-2 mb-5">${tabs.map((t, i) => `<button onclick="window._pickWed(${i})" class="wed-tab px-4 py-2.5 rounded-2xl font-black text-lg border-2">${t.icon} ${t.title}</button>`).join('')}</div>
+            <div id="wed-card" class="bg-white/90 border-2 border-emerald-300 rounded-3xl p-7 text-center max-w-2xl mx-auto"></div>
+          `;
+          const renderWed = () => {
+            const t = tabs[cur];
+            container.querySelectorAll('.wed-tab').forEach((b, i) => {
+              b.className = i === cur ? 'wed-tab px-4 py-2.5 rounded-2xl font-black text-lg border-2 bg-[#4A7C59] text-white border-[#4A7C59]' : 'wed-tab px-4 py-2.5 rounded-2xl font-black text-lg border-2 bg-white text-emerald-900 border-emerald-200';
+            });
+            container.querySelector('#wed-card').innerHTML = `<div class="text-7xl mb-3">${t.icon}</div><h3 class="text-3xl font-black text-emerald-900 mb-3">${t.title}</h3><p class="text-xl sm:text-2xl font-bold text-gray-700 leading-relaxed">${t.desc}</p>`;
+          };
+          window._pickWed = (i) => { cur = i; SoundFX.playStep(); renderWed(); };
+          renderWed();
+          break;
+        }
+
+        case 'adult_6': {
+          renderCollapsiblePromptCard(container, promptBanner, '💐', '打開昔日結識場景提示', [
+            '💃 茶舞／跳舞（Disco、舞廳）', '🎤 曲藝社／唱粵曲', '✨ 夜總會／酒樓', '🤝 親友媒人介紹／隔離鄰舍日久生情'
+          ]);
+          break;
+        }
+
+        case 'adult_7': {
+          const jobs = [
+            { icon: '🔨', name: '三行（木工、泥水、油漆）', desc: '建造同裝修師傅，起樓、批盪、髹油樣樣精，靠一雙巧手養大頭家！' },
+            { icon: '🧵', name: '工廠（車衣／穿膠花）', desc: '六七十年代香港工業起飛，車衣女工、電子廠、拎膠花返屋企穿！' },
+            { icon: '🧺', name: '馬姐（自梳女）', desc: '紮住長長大辮、白衫黑褲，煮飯持家一流，係舊香港嘅經典身影。' },
+            { icon: '🍜', name: '街邊小販', desc: '推車仔賣魚蛋、碗仔翅、炒栗子、賣衫賣生果，熱鬧又有人情味！' },
+            { icon: '🦷', name: '街邊牙醫', desc: '舊時街邊或唐樓睇牙補牙，價錢相宜，幫街坊解決牙痛煩惱。' }
+          ];
+          container.innerHTML = promptBanner + `
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-5">
+              ${jobs.map((j, i) => `<button onclick="window._pickJob(${i})" class="bg-white hover:bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-4 text-center transition shadow-sm"><div class="text-4xl mb-1">${j.icon}</div><div class="text-lg font-black text-emerald-950">${j.name}</div></button>`).join('')}
+            </div>
+            <div id="job-detail" class="bg-white/95 border-2 border-emerald-400 rounded-2xl p-5 text-center text-xl font-bold text-emerald-950">👆 點擊以上任何一個昔日行業，放大睇介紹並一齊分享！</div>
+          `;
+          window._pickJob = (i) => { SoundFX.playStep(); container.querySelector('#job-detail').innerHTML = `<span class="text-3xl mr-2">${jobs[i].icon}</span><strong class="text-2xl">${jobs[i].name}</strong><div class="mt-2 text-gray-700">${jobs[i].desc}</div>`; };
+          break;
+        }
+
+        case 'adult_8': {
+          renderCollapsiblePromptCard(container, promptBanner, '💵', '顯示出糧用途提示', [
+            '🏠 俾家用孝順父母', '🍵 請屋企人去酒樓飲茶', '👔 買一件鍾意咗好耐嘅新衫', '💰 存入銀行儲起佢'
+          ]);
+          break;
+        }
+
+        case 'adult_9': {
+          container.innerHTML = promptBanner + `
+            <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto mb-5">
+              <div class="bg-white border-2 border-emerald-200 rounded-2xl p-4 text-center shadow-sm"><div class="text-5xl mb-1">👕</div><div class="text-2xl font-black text-emerald-950">2 件衫</div></div>
+              <div class="bg-white border-2 border-rose-200 rounded-2xl p-4 text-center shadow-sm"><div class="text-5xl mb-1">🧦</div><div class="text-2xl font-black text-rose-900">5 對襪</div></div>
+            </div>
+            <div class="bg-white border-2 border-[#4A7C59] rounded-3xl p-6 text-center max-w-md mx-auto shadow-sm">
+              <div class="text-sm font-bold text-emerald-800 mb-1">限時 1 分鐘倒數（物資：衫及襪）</div>
+              <div id="chore-timer" class="text-6xl font-black text-rose-600 mb-5">01:00</div>
+              <div class="flex justify-center gap-3">
+                <button id="chore-start" class="bg-[#4A7C59] hover:bg-[#365f42] text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow">⏱️ 開始計時</button>
+                <button id="chore-reset" class="bg-gray-200 text-gray-800 px-5 py-3.5 rounded-2xl font-bold text-lg">重設</button>
+              </div>
+            </div>
+          `;
+          let s = 60, tid = null;
+          const disp = container.querySelector('#chore-timer'), startBtn = container.querySelector('#chore-start');
+          startBtn.onclick = () => {
+            if (tid) { clearInterval(tid); tid = null; startBtn.textContent = '繼續計時'; return; }
+            startBtn.textContent = '暫停';
+            tid = setInterval(() => {
+              s--; disp.textContent = `00:${String(Math.max(0, s)).padStart(2, '0')}`;
+              if (s <= 10 && s > 0) SoundFX.playTick();
+              if (s <= 0) { clearInterval(tid); tid = null; SoundFX.playBell(); launchConfetti(); showToast('時間到！睇下各位家務王摺得幾整齊！👏'); startBtn.textContent = '再挑戰'; s = 60; }
+            }, 1000);
+            state.activeTimers.push(tid);
+          };
+          container.querySelector('#chore-reset').onclick = () => { if (tid) clearInterval(tid); tid = null; s = 60; disp.textContent = '01:00'; startBtn.textContent = '⏱️ 開始計時'; };
+          break;
+        }
+
+        case 'adult_10': {
+          renderCollapsiblePromptCard(container, promptBanner, '🧳', '打開旅行引導問題', [
+            '🗺️ 嗰次旅行去咗邊度？（例如：返鄉下、澳門、台灣、外國、郊遊）', '👨‍👩‍👧‍👦 同邊個一齊去？', '🍜 最難忘嘅風景、美食同感受係咩？'
+          ]);
+          break;
+        }
+
+        /* ==================== 老年期 (1-10) ==================== */
+        case 'elder_1': {
+          container.innerHTML = promptBanner + `
+            <div class="bg-white/90 border-2 border-[#C8BFB0] rounded-3xl p-6 text-center max-w-2xl mx-auto">
+              <div class="flex flex-wrap justify-center gap-3 mb-5">
+                <span class="px-4 py-2 rounded-full bg-[#F5F0E6] border border-[#C7B9AA] text-lg font-black text-[#4A4036]">🙏 宗教儀式</span>
+                <span class="px-4 py-2 rounded-full bg-[#F5F0E6] border border-[#C7B9AA] text-lg font-black text-[#4A4036]">🌿 綠色殯葬</span>
+                <span class="px-4 py-2 rounded-full bg-[#F5F0E6] border border-[#C7B9AA] text-lg font-black text-[#4A4036]">💛 活好當下</span>
+              </div>
+              <button id="green-burial-toggle" class="bg-emerald-700 hover:bg-emerald-800 text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow-md mb-4">🌿 觀看「綠色殯葬介紹」</button>
+              <div id="green-burial-box" class="hidden bg-emerald-50/70 rounded-2xl p-5 text-left border-2 border-emerald-200 space-y-2 mt-2">
+                <div class="text-xl font-black text-emerald-900">「因為愛，所以生命開始；延續愛，選擇回歸自然。」</div>
+                <p class="text-lg font-medium text-gray-800">• <strong>紀念花園撒灰</strong>：將骨灰撒於鳥語花香嘅紀念花園草地，環保又寧靜。</p>
+                <p class="text-lg font-medium text-gray-800">• <strong>海上撒灰</strong>：乘船於指定海域撒放骨灰，讓生命回歸大海。</p>
+                <p class="text-lg font-medium text-gray-800">• <strong>重點</strong>：早啲同家人講低自己心願，令彼此安心，專心享受今日嘅快樂生活。</p>
+              </div>
+            </div>
+          `;
+          container.querySelector('#green-burial-toggle').onclick = () => { container.querySelector('#green-burial-box').classList.toggle('hidden'); SoundFX.playStep(); };
+          break;
+        }
+
+        case 'elder_2': {
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-col items-center bg-white/90 border-2 border-[#C8BFB0] rounded-3xl p-6 text-center max-w-2xl mx-auto">
+              <div class="w-40 h-40 rounded-full bg-gradient-to-tr from-teal-500 to-sky-400 flex items-center justify-center shadow-xl mb-5 taichi-breath">
+                <div class="text-white font-black text-2xl">☯️ 雲手</div>
+              </div>
+              <div class="text-2xl font-black text-teal-900 mb-2">慢慢吸氣… 雙手如行雲流水左右畫圓… 慢慢呼氣</div>
+              <p class="text-base sm:text-lg font-bold text-gray-600 mb-5">參考影片：《銀鈴護士站》坐式太極（由 1:16 開始跟做）</p>
+              <a href="https://www.youtube.com/results?search_query=%E9%8A%80%E9%88%B4%E8%AD%B7%E5%A3%AB%E7%AB%99+%E5%9D%90%E5%BC%8F%E5%A4%AA%E6%A5%B5" target="_blank" rel="noopener" class="bg-teal-600 hover:bg-teal-700 text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow">▶️ 開啟坐式太極影片</a>
+            </div>
+          `;
+          break;
+        }
+
+        case 'elder_3': {
+          const steps = [
+            { name: '1. 深呼吸', target: 5, icon: '🙆‍♂️', desc: '1. 左右手一齊向天花板舉高，同時吸氣\n2. 慢慢放下，同時呼氣，重覆 5 次' },
+            { name: '2. 轉膊頭', target: 20, icon: '🔄', desc: '1. 雙手搭在肩膀上\n2. 手肘向後劃圈，重覆 10 次\n3. 換向前劃圈，重覆 10 次（共 20 次）' },
+            { name: '3. 抱 BB', target: 10, icon: '👶', desc: '1. 雙手放胸前，模擬抱 BB\n2. 手踭左右搖動 10 次' }
+          ];
+          let cur = 0, reps = 0;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-wrap justify-center gap-2 mb-5">${steps.map((s, i) => `<button onclick="window._pickEx(${i})" class="ex-tab px-5 py-2.5 rounded-2xl font-black text-lg border-2">${s.name}</button>`).join('')}</div>
+            <div id="ex-card" class="bg-white/90 border-2 border-[#C8BFB0] rounded-3xl p-6 text-center max-w-2xl mx-auto"></div>
+          `;
+          const renderEx = () => {
+            const s = steps[cur];
+            container.querySelectorAll('.ex-tab').forEach((b, i) => {
+              b.className = i === cur ? 'ex-tab px-5 py-2.5 rounded-2xl font-black text-lg border-2 bg-[#6B6257] text-white border-[#6B6257]' : 'ex-tab px-5 py-2.5 rounded-2xl font-black text-lg border-2 bg-white text-[#4A4036] border-[#C8BFB0]';
+            });
+            const card = container.querySelector('#ex-card');
+            card.innerHTML = `
+              <div class="text-6xl mb-3">${s.icon}</div>
+              <pre class="font-sans text-xl sm:text-2xl font-black text-gray-800 whitespace-pre-wrap leading-relaxed mb-5">${s.desc}</pre>
+              <div class="text-5xl font-black text-[#5C4D42] mb-5">${reps} / ${s.target} 次</div>
+              <div class="flex justify-center gap-3">
+                <button id="ex-add" class="bg-[#6B6257] text-white px-8 py-4 rounded-2xl font-black text-2xl shadow">➕ 計數 (+1)</button>
+                <button id="ex-reset" class="bg-gray-200 text-gray-800 px-5 py-4 rounded-2xl font-bold text-lg">重設</button>
+              </div>
+            `;
+            card.querySelector('#ex-add').onclick = () => { if (reps < s.target) { reps++; SoundFX.playStep(); if (reps === s.target) { SoundFX.playApplause(); launchConfetti(); showToast(`完成「${s.name}」！好精神！`); } renderEx(); } };
+            card.querySelector('#ex-reset').onclick = () => { reps = 0; renderEx(); };
+          };
+          window._pickEx = (i) => { cur = i; reps = 0; SoundFX.playStep(); renderEx(); };
+          renderEx();
+          break;
+        }
+
+        case 'elder_4': {
+          const scenes = [
+            {
+              name: '初級：兔仔熊仔野餐',
+              items: ['太陽', '白雲', '白兔仔', '咖啡熊仔', '野餐籃', '士多啤梨', '兩杯橙汁', '三文治', '格仔野餐墊'],
+              svg: `<svg viewBox="0 0 480 260" class="w-full h-56 sm:h-64 rounded-2xl border-2 border-lime-300 bg-sky-100">
+                <rect width="480" height="160" fill="#CBEBFB"/><rect y="150" width="480" height="110" fill="#B5D87B"/>
+                <circle cx="80" cy="52" r="28" fill="#FACC15"/>
+                <ellipse cx="320" cy="48" rx="38" ry="18" fill="#FFF"/><ellipse cx="400" cy="78" rx="28" ry="14" fill="#FFF"/>
+                <polygon points="70,180 410,180 450,255 30,255" fill="#F89B75" stroke="#B45309" stroke-width="3"/>
+                <text x="140" y="175" font-size="68">🐰</text><text x="212" y="172" font-size="52">🧺</text><text x="280" y="175" font-size="68">🐻</text>
+                <text x="125" y="238" font-size="42">🍓</text><text x="200" y="234" font-size="38">🧃🧃</text><text x="295" y="238" font-size="42">🥪</text>
+              </svg>`
+            },
+            {
+              name: '中級：水果籃',
+              items: ['香蕉', '火龍果', '大柚子', '藍莓', '兩個橙', '兩個雪梨', '兩個紅蘋果', '芒果'],
+              svg: `<svg viewBox="0 0 480 260" class="w-full h-56 sm:h-64 rounded-2xl border-2 border-amber-300 bg-[#D7B286]">
+                <rect width="480" height="165" fill="#D5AD7E"/><rect y="165" width="480" height="95" fill="#E3C49B"/>
+                <rect x="75" y="150" width="330" height="88" rx="14" fill="#C68E4E" stroke="#78350F" stroke-width="4"/>
+                <rect x="85" y="150" width="310" height="22" fill="#F5F0E6"/>
+                <text x="105" y="148" font-size="56">🍌</text><text x="172" y="138" font-size="60">🐉</text><text x="235" y="142" font-size="62">🍈</text><text x="312" y="146" font-size="52">🫐</text>
+                <text x="95" y="205" font-size="50">🍊🍊</text><text x="205" y="205" font-size="50">🍎🍎</text><text x="315" y="205" font-size="52">🥭</text>
+              </svg>`
+            },
+            {
+              name: '進階：公園瀡滑梯',
+              items: ['綠色三道大滑梯', '四個小朋友', '媽媽招手', '爸爸企右邊', '可樂樽', '紅色背囊', '大樹'],
+              svg: `<svg viewBox="0 0 480 260" class="w-full h-56 sm:h-64 rounded-2xl border-2 border-emerald-400 bg-emerald-100">
+                <rect width="480" height="260" fill="#D1FAE5"/>
+                <text x="18" y="68" font-size="52">🌳</text><text x="410" y="68" font-size="52">🌳</text>
+                <rect x="135" y="45" width="210" height="185" rx="24" fill="#047857" stroke="#064E3B" stroke-width="4"/>
+                <line x1="205" y1="45" x2="205" y2="230" stroke="#10B981" stroke-width="5"/>
+                <line x1="275" y1="45" x2="275" y2="230" stroke="#10B981" stroke-width="5"/>
+                <text x="218" y="88" font-size="40">👧</text><text x="148" y="135" font-size="40">🧒</text>
+                <text x="218" y="205" font-size="44">👦</text><text x="285" y="185" font-size="42">👩</text>
+                <text x="35" y="165" font-size="48">👩‍🦱</text><text x="42" y="220" font-size="36">🎒🥤</text>
+                <text x="390" y="175" font-size="50">👨‍🦳</text>
+              </svg>`
+            }
+          ];
+          let cur = 0, sec = 30, hidden = false, tid = null;
+          container.innerHTML = promptBanner + `
+            <div class="flex flex-wrap justify-center gap-2 mb-4">${scenes.map((s, i) => `<button onclick="window._pickMem(${i})" class="mem-tab px-4 py-2 rounded-xl font-black text-base border-2">${s.name}</button>`).join('')}</div>
+            <div class="relative max-w-2xl mx-auto mb-5">
+              <div id="mem-scene-box"></div>
+              <div id="mem-curtain" class="hidden absolute inset-0 rounded-2xl bg-slate-900/90 backdrop-blur-xl flex flex-col items-center justify-center text-white p-6 text-center">
+                <div class="text-6xl mb-3">🙈</div>
+                <div class="text-3xl font-black mb-2">時間到！圖畫已自動遮起</div>
+                <p class="text-xl text-amber-300 font-bold">請老友講出剛才圖畫入面見到啲咩！</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <div class="px-5 py-3 rounded-2xl bg-amber-100 text-amber-950 font-black text-2xl">⏱️ <span id="mem-sec">30</span> 秒</div>
+              <button id="mem-start" class="bg-[#6B6257] text-white px-6 py-3 rounded-2xl font-black text-xl shadow">▶️ 開始 30 秒記憶</button>
+              <button id="mem-toggle" class="bg-emerald-600 text-white px-6 py-3 rounded-2xl font-black text-xl shadow">👀 揭開對答案</button>
+            </div>
+            <div id="mem-answer-list" class="hidden mt-4 bg-white border-2 border-emerald-300 rounded-2xl p-4 flex flex-wrap justify-center gap-2 max-w-2xl mx-auto"></div>
+          `;
+          const renderMem = () => {
+            container.querySelectorAll('.mem-tab').forEach((b, i) => {
+              b.className = i === cur ? 'mem-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-[#6B6257] text-white border-[#6B6257]' : 'mem-tab px-4 py-2 rounded-xl font-black text-base border-2 bg-white text-[#4A4036] border-[#C8BFB0]';
+            });
+            container.querySelector('#mem-scene-box').innerHTML = scenes[cur].svg;
+            container.querySelector('#mem-curtain').classList.toggle('hidden', !hidden);
+            container.querySelector('#mem-sec').textContent = sec;
+            container.querySelector('#mem-answer-list').innerHTML = scenes[cur].items.map(it => `<label class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl font-bold text-emerald-950 cursor-pointer"><input type="checkbox" class="w-4 h-4 accent-emerald-600"/><span>${it}</span></label>`).join('');
+          };
+          container.querySelector('#mem-start').onclick = () => {
+            if (tid) clearInterval(tid);
+            hidden = false; sec = 30; container.querySelector('#mem-answer-list').classList.add('hidden'); renderMem();
+            tid = setInterval(() => {
+              sec--; container.querySelector('#mem-sec').textContent = sec;
+              if (sec <= 5 && sec > 0) SoundFX.playTick();
+              if (sec <= 0) { clearInterval(tid); tid = null; hidden = true; SoundFX.playBell(); renderMem(); }
+            }, 1000);
+            state.activeTimers.push(tid);
+          };
+          container.querySelector('#mem-toggle').onclick = () => {
+            hidden = !hidden; container.querySelector('#mem-answer-list').classList.toggle('hidden', hidden); renderMem();
+          };
+          window._pickMem = (i) => { if (tid) clearInterval(tid); cur = i; sec = 30; hidden = false; renderMem(); };
+          renderMem();
+          break;
+        }
+
+        case 'elder_5': {
+          let bloomed = [false, false, false];
+          container.innerHTML = promptBanner + `
+            <div class="grid grid-cols-3 gap-4 max-w-2xl mx-auto mb-6">
+              ${[0,1,2].map(i => `<button onclick="window._bloomGrat(${i})" id="grat-slot-${i}" class="bg-white hover:bg-amber-50 border-2 border-amber-300 rounded-3xl p-5 text-center transition shadow-sm"><div class="text-5xl mb-2">🌱</div><div class="text-xl font-black text-amber-900">感恩第 ${i+1} 件事</div><div class="text-xs font-bold text-amber-700 mt-1">講完點一下開花</div></button>`).join('')}
+            </div>
+            <div class="text-center">
+              <button id="grat-hint-btn" class="bg-[#6B6257] text-white px-6 py-3 rounded-2xl font-bold text-lg mb-3">💡 顯示感恩提示</button>
+              <div id="grat-hints" class="hidden flex flex-wrap justify-center gap-3 mt-2">
+                <span class="px-5 py-2.5 rounded-full bg-white border-2 border-amber-300 text-xl font-black text-amber-900">🍚 食得</span>
+                <span class="px-5 py-2.5 rounded-full bg-white border-2 border-amber-300 text-xl font-black text-amber-900">🚽 痾得</span>
+                <span class="px-5 py-2.5 rounded-full bg-white border-2 border-amber-300 text-xl font-black text-amber-900">🤝 有人陪</span>
+              </div>
+            </div>
+          `;
+          window._bloomGrat = (i) => {
+            bloomed[i] = true;
+            const slot = container.querySelector(`#grat-slot-${i}`);
+            slot.className = 'bg-emerald-50 border-2 border-emerald-400 rounded-3xl p-5 text-center shadow-md scale-105 transition';
+            slot.innerHTML = `<div class="text-5xl mb-2">🌸</div><div class="text-xl font-black text-emerald-800">凡事感恩！</div>`;
+            SoundFX.playChime();
+            if (bloomed.every(Boolean)) { SoundFX.playApplause(); launchConfetti(); }
+          };
+          container.querySelector('#grat-hint-btn').onclick = () => container.querySelector('#grat-hints').classList.toggle('hidden');
+          break;
+        }
+
+        case 'elder_6': {
+          let running = false, startTime = 0, elapsed = 0, tid = null;
+          container.innerHTML = promptBanner + `
+            <div class="bg-white/95 border-2 border-[#C8BFB0] rounded-3xl p-6 text-center max-w-xl mx-auto">
+              <div class="inline-block px-4 py-1.5 rounded-full bg-amber-100 text-amber-900 font-black text-base mb-4">🏆 今日最長紀錄：<span id="mpt-best">${state.mptBestRecord.toFixed(1)}</span> 秒</div>
+              <div class="w-full h-6 bg-gray-100 rounded-full overflow-hidden border border-gray-300 mb-4">
+                <div id="mpt-vol-bar" class="h-full bg-gradient-to-r from-emerald-400 to-amber-500 transition-all duration-75" style="width: 4%"></div>
+              </div>
+              <div id="mpt-time" class="text-7xl font-black text-gray-900 tabular-nums mb-5">0.0 秒</div>
+              <div class="flex flex-wrap justify-center gap-3">
+                <button id="mpt-toggle" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-black text-2xl shadow-lg">▶️ 開始「啊——」</button>
+                <button id="mpt-mic" class="bg-sky-600 text-white px-5 py-4 rounded-2xl font-bold text-lg shadow">🎤 音量條</button>
+                <button id="mpt-reset" class="bg-gray-200 text-gray-800 px-5 py-4 rounded-2xl font-bold text-lg">歸零</button>
+              </div>
+            </div>
+          `;
+          const toggleBtn = container.querySelector('#mpt-toggle'), timeEl = container.querySelector('#mpt-time');
+          toggleBtn.onclick = () => {
+            if (!running) {
+              running = true; startTime = Date.now() - elapsed;
+              toggleBtn.textContent = '⏹️ 停止計時';
+              toggleBtn.className = 'bg-rose-600 text-white px-8 py-4 rounded-2xl font-black text-2xl shadow-lg';
+              tid = setInterval(() => { elapsed = Date.now() - startTime; timeEl.textContent = (elapsed/1000).toFixed(1) + ' 秒'; }, 100);
+              state.activeTimers.push(tid);
+            } else {
+              running = false; clearInterval(tid);
+              toggleBtn.textContent = '▶️ 再試一次';
+              toggleBtn.className = 'bg-emerald-600 text-white px-8 py-4 rounded-2xl font-black text-2xl shadow-lg';
+              const secVal = elapsed / 1000;
+              if (secVal > state.mptBestRecord) {
+                state.mptBestRecord = secVal; container.querySelector('#mpt-best').textContent = secVal.toFixed(1);
+                SoundFX.playApplause(); launchConfetti(); showToast(`破咗今日紀錄：${secVal.toFixed(1)} 秒！好夠氣！🎉`);
+              } else SoundFX.playChime();
+              elapsed = 0;
+            }
+          };
+          container.querySelector('#mpt-mic').onclick = async () => {
+            try {
+              const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+              state.activeMediaStreams.push(stream);
+              const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+              window._micAudioCtx = audioCtx;
+              const analyser = audioCtx.createAnalyser();
+              audioCtx.createMediaStreamSource(stream).connect(analyser);
+              analyser.fftSize = 256;
+              const data = new Uint8Array(analyser.frequencyBinCount);
+              const bar = container.querySelector('#mpt-vol-bar');
+              const loop = () => {
+                analyser.getByteFrequencyData(data);
+                const avg = data.reduce((a,b) => a+b, 0) / data.length;
+                bar.style.width = Math.min(100, Math.max(4, avg * 1.8)) + '%';
+                window._micRaf = requestAnimationFrame(loop);
+              };
+              loop();
+              showToast('已開啟即時音量波紋條！');
+            } catch (e) { showToast('未能開啟收音咪，仍可正常使用秒錶！'); }
+          };
+          container.querySelector('#mpt-reset').onclick = () => { if (tid) clearInterval(tid); running = false; elapsed = 0; timeEl.textContent = '0.0 秒'; toggleBtn.textContent = '▶️ 開始「啊——」'; toggleBtn.className = 'bg-emerald-600 text-white px-8 py-4 rounded-2xl font-black text-2xl shadow-lg'; };
+          break;
+        }
+
+        case 'elder_7': {
+          const stations = [
+            { name: '尖沙咀', en: 'Tsim Sha Tsui', bg: '#FACC15', fg: '#111827', adj: '前：金鐘 ｜ 後：佐敦' },
+            { name: '油麻地', en: 'Yau Ma Tei',    bg: '#D6D3D1', fg: '#111827', adj: '前：佐敦 ｜ 後：旺角（觀塘綫：何文田）' },
+            { name: '九龍塘', en: 'Kowloon Tong',  bg: '#0E7490', fg: '#FFFFFF', adj: '前：石硤尾 ｜ 後：樂富' },
+            { name: '長沙灣', en: 'Cheung Sha Wan',bg: '#CA8A04', fg: '#111827', adj: '前：深水埗 ｜ 後：荔枝角' }
+          ];
+          container.innerHTML = promptBanner + `
+            <p class="text-center text-lg font-bold text-gray-700 mb-4">👆 點擊模糊嘅馬賽克站牌即變清晰，再講出前後站名！</p>
+            <div class="grid grid-cols-2 gap-4 max-w-2xl mx-auto mb-5">
+              ${stations.map((s, i) => `
+                <button onclick="window._revealMTR(${i})" class="rounded-2xl p-5 shadow-md text-center border-2 border-black/10" style="background:${s.bg}; color:${s.fg}">
+                  <div id="mtr-text-${i}" class="mtr-blur">
+                    <div class="text-3xl sm:text-4xl font-black tracking-widest">${s.name}</div>
+                    <div class="text-sm sm:text-base font-bold opacity-85">${s.en}</div>
+                  </div>
+                  <div id="mtr-adj-${i}" class="hidden mt-2 text-xs sm:text-sm font-black bg-white/85 text-gray-900 rounded-lg px-2 py-1">${s.adj}</div>
+                </button>
+              `).join('')}
+            </div>
+            <div class="text-center">
+              <button id="mtr-map-toggle" class="bg-[#6B6257] text-white px-6 py-3 rounded-2xl font-black text-lg shadow">🗺️ 顯示／隱藏港鐵路線圖</button>
+              <div id="mtr-map-box" class="hidden mt-4 bg-white border-2 border-gray-300 rounded-2xl p-4 text-left space-y-3 max-w-2xl mx-auto">
+                <div><span class="px-2.5 py-1 rounded-lg bg-red-600 text-white font-black text-sm mr-2">荃灣綫</span><span class="text-base font-bold text-gray-800">中環 ⇄ 金鐘 ⇄ <strong class="text-red-700">尖沙咀</strong> ⇄ 佐敦 ⇄ <strong class="text-red-700">油麻地</strong> ⇄ 旺角 ⇄ 太子 ⇄ 深水埗 ⇄ <strong class="text-red-700">長沙灣</strong> ⇄ 荔枝角 ⇄ 美孚 ⇄ 荃灣</span></div>
+                <div><span class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-black text-sm mr-2">觀塘綫</span><span class="text-base font-bold text-gray-800">黃埔 ⇄ 何文田 ⇄ <strong class="text-emerald-700">油麻地</strong> ⇄ 旺角 ⇄ 太子 ⇄ 石硤尾 ⇄ <strong class="text-emerald-700">九龍塘</strong> ⇄ 樂富 ⇄ 黃大仙 ⇄ 鑽石山 ⇄ 彩虹 ⇄ 觀塘</span></div>
+              </div>
+            </div>
+          `;
+          window._revealMTR = (i) => {
+            const el = container.querySelector(`#mtr-text-${i}`);
+            el.classList.remove('mtr-blur'); el.classList.add('mtr-clear');
+            container.querySelector(`#mtr-adj-${i}`).classList.remove('hidden');
+            SoundFX.playChime();
+          };
+          container.querySelector('#mtr-map-toggle').onclick = () => container.querySelector('#mtr-map-box').classList.toggle('hidden');
+          break;
+        }
+
+        case 'elder_8': {
+          renderCollapsiblePromptCard(container, promptBanner, '🏡', '打開尋根傾計提示', [
+            '🗺️ 鄉下喺邊度？（例如：順德、潮州、東莞、番禺、四邑、上海…）', '🚢 當年幾多歲、點樣嚟香港？', '🍜 最懷念嘅家鄉美食或者田園風景係咩？'
+          ]);
+          break;
+        }
+
+        case 'elder_9': {
+          const dims = [
+            { icon: '🥟', name: '蝦餃' }, { icon: '🟡', name: '燒賣' }, { icon: '🥟', name: '叉燒包' },
+            { icon: '🍰', name: '馬拉糕' }, { icon: '🍗', name: '鳳爪' }, { icon: '🍃', name: '糯米雞' }
+          ];
+          container.innerHTML = promptBanner + `
+            <div class="text-center mb-5"><button id="dimsum-toggle" class="bg-[#6B6257] text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow">🥟 顯示／隱藏點心提示圖</button></div>
+            <div id="dimsum-grid" class="hidden grid-cols-2 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+              ${dims.map(d => `<div class="bg-white border-2 border-[#C8BFB0] rounded-2xl p-5 text-center shadow-sm"><div class="text-6xl mb-2">${d.icon}</div><div class="text-2xl font-black text-gray-900">${d.name}</div></div>`).join('')}
+            </div>
+          `;
+          container.querySelector('#dimsum-toggle').onclick = () => { const g = container.querySelector('#dimsum-grid'); g.classList.toggle('hidden'); g.classList.toggle('grid'); SoundFX.playStep(); };
+          break;
+        }
+
+        case 'elder_10': { renderHighLowCardGame(container, promptBanner, true); break; }
+      }
+    }
+
+    /* =====================================================================
+       11. SHARED SUB-WIDGET HELPERS
+       ===================================================================== */
+    function renderCollapsiblePromptCard(container, promptBanner, bigIcon, btnText, hints) {
+      container.innerHTML = promptBanner + `
+        <div class="flex flex-col items-center text-center py-2">
+          <div class="text-7xl mb-5">${bigIcon}</div>
+          <button id="collapse-hint-btn" class="bg-gray-900 hover:bg-gray-800 text-white px-7 py-3.5 rounded-2xl font-black text-xl shadow-md mb-5">💡 ${btnText}</button>
+          <div id="collapse-hint-list" class="hidden w-full max-w-2xl space-y-3 text-left">
+            ${hints.map(h => `<div class="bg-white border-2 border-gray-200 rounded-2xl p-4 text-xl font-bold text-gray-800 shadow-sm">${h}</div>`).join('')}
+          </div>
+        </div>
+      `;
+      container.querySelector('#collapse-hint-btn').onclick = () => { container.querySelector('#collapse-hint-list').classList.toggle('hidden'); SoundFX.playStep(); };
+    }
+
+    function renderHighLowCardGame(container, promptBanner, continuousMode) {
+      const suits = ['♠️','♥️','♣️','♦️'];
+      const drawCard = () => ({ val: Math.floor(Math.random()*10)+1, suit: suits[Math.floor(Math.random()*4)] });
+      let hostCard = drawCard(), playerCard = null, streak = 0;
+
+      container.innerHTML = promptBanner + `
+        <div class="flex flex-col items-center">
+          ${continuousMode ? `<div class="mb-3 px-4 py-1.5 rounded-full bg-amber-100 text-amber-900 font-black text-lg">🔥 連勝紀錄：<span id="hl-streak">0</span> 局</div>` : ''}
+          <div class="grid grid-cols-2 gap-6 max-w-lg w-full mb-5">
+            <div class="flex flex-col items-center">
+              <div class="text-lg font-bold text-gray-700 mb-2">${continuousMode ? '目前張牌' : '主持人張牌'}</div>
+              <div id="hl-host" class="w-32 h-44 sm:w-36 sm:h-48 rounded-3xl bg-white border-4 border-gray-800 shadow-xl flex flex-col items-center justify-center"></div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="text-lg font-bold text-gray-700 mb-2">${continuousMode ? '下一張牌' : '老友張牌'}</div>
+              <div id="hl-player" class="w-32 h-44 sm:w-36 sm:h-48 rounded-3xl bg-gradient-to-br from-emerald-700 to-teal-900 border-4 border-white shadow-xl flex items-center justify-center text-6xl text-white font-black">?</div>
+            </div>
+          </div>
+          <div id="hl-msg" class="text-2xl font-black text-gray-900 mb-5 min-h-[36px]">估下右邊張牌比左邊「大」定「細」？</div>
+          <div class="flex flex-wrap justify-center gap-4">
+            <button id="hl-big" class="bg-rose-600 hover:bg-rose-700 text-white px-8 py-4 rounded-2xl font-black text-2xl shadow-lg">⬆️ 估大</button>
+            <button id="hl-small" class="bg-sky-600 hover:bg-sky-700 text-white px-8 py-4 rounded-2xl font-black text-2xl shadow-lg">⬇️ 估細</button>
+            <button id="hl-next" class="bg-white border-2 border-gray-300 text-gray-800 px-6 py-4 rounded-2xl font-bold text-xl">🔄 換新牌</button>
+          </div>
+        </div>
+      `;
+
+      const paintCard = (el, card) => {
+        const isRed = card.suit === '♥️' || card.suit === '♦️';
+        el.className = `w-32 h-44 sm:w-36 sm:h-48 rounded-3xl bg-white border-4 border-gray-800 shadow-xl flex flex-col items-center justify-center ${isRed ? 'text-rose-600' : 'text-gray-900'}`;
+        el.innerHTML = `<div class="text-4xl">${card.suit}</div><div class="text-6xl font-black leading-none mt-1">${card.val === 1 ? 'A' : card.val}</div>`;
+      };
+
+      const resetRound = (keepLast = false) => {
+        hostCard = (keepLast && playerCard) ? playerCard : drawCard();
+        playerCard = null;
+        paintCard(container.querySelector('#hl-host'), hostCard);
+        const pEl = container.querySelector('#hl-player');
+        pEl.className = 'w-32 h-44 sm:w-36 sm:h-48 rounded-3xl bg-gradient-to-br from-emerald-700 to-teal-900 border-4 border-white shadow-xl flex items-center justify-center text-6xl text-white font-black';
+        pEl.textContent = '?';
+        container.querySelector('#hl-msg').textContent = '估下右邊張牌比左邊「大」定「細」？';
+      };
+
+      const guess = (dir) => {
+        playerCard = drawCard(); paintCard(container.querySelector('#hl-player'), playerCard);
+        const msgEl = container.querySelector('#hl-msg');
+        if (playerCard.val === hostCard.val) { msgEl.textContent = '同點數打和！算你過關，再抽過！😄'; SoundFX.playStep(); }
+        else if ((dir === 'big' && playerCard.val > hostCard.val) || (dir === 'small' && playerCard.val < hostCard.val)) {
+          streak++; msgEl.textContent = '🎉 估中咗！好眼光呀老友！'; SoundFX.playApplause(); launchConfetti();
+        } else { streak = 0; msgEl.textContent = '差少少咋！按「換新牌」再玩過！💪'; SoundFX.playStep(); }
+        const stEl = container.querySelector('#hl-streak');
+        if (stEl) stEl.textContent = streak;
+      };
+
+      container.querySelector('#hl-big').onclick = () => guess('big');
+      container.querySelector('#hl-small').onclick = () => guess('small');
+      container.querySelector('#hl-next').onclick = () => { SoundFX.playDice(); resetRound(continuousMode); };
+      resetRound(false);
+    }
+
+    /* =====================================================================
+       INIT
+       ===================================================================== */
+    window.addEventListener('DOMContentLoaded', () => {
+      if ('speechSynthesis' in window) window.speechSynthesis.getVoices();
+      renderBoard();
+      updateMenuProgress();
+    });
+  </script>
+</body>
+</html>
